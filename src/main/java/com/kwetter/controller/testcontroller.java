@@ -39,7 +39,7 @@ public class testcontroller {
         User userToAdd = new User(
                 "Niek",
                 "gekkePassword",
-                "Venlo",
+                "This is my Bio",
                 location,
                 "https://pyld.io",
                 role

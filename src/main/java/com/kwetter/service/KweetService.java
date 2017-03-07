@@ -1,8 +1,8 @@
 package com.kwetter.service;
 
-import com.kwetter.dao.KweetDAO;
-import com.kwetter.dao.UserDAO;
+import com.kwetter.dao.*;
 import com.kwetter.model.Kweet;
+import com.kwetter.model.Location;
 import com.kwetter.model.Role;
 import com.kwetter.model.User;
 
@@ -16,13 +16,23 @@ import java.util.List;
 
 @Stateless
 @Named
-public class kweetService {
+public class KweetService {
+
 
     @Inject
-    private UserDAO userDAO;
+    private UserDAO_Impl userDAO;
 
     @Inject
-    private KweetDAO kweetDAO;
+    private KweetDAO_Impl kweetDAO;
+/*
+     private UserDAO userDAO = new UserDAOCollection_Impl();
+    private KweetDAO kweetDAO = new KweetDAOCollection_Impl();
+
+*/
+
+   // private UserDAO userDAO = new UserDAO_Impl();
+    //private KweetDAO kweetDAO = new KweetDAO_Impl();
+
 
 
     //change username
@@ -69,6 +79,11 @@ public class kweetService {
     //Get all users
     public List<User> getUsers() {
         return userDAO.getAllUsers();
+    }
+
+    //Find user by username
+    public User findByUserName(String userName) {
+        return userDAO.findUserByUserName(userName);
     }
 
     //Change users role
