@@ -2,6 +2,7 @@ import com.kwetter.dao.KweetDAOCollection_Impl;
 import com.kwetter.dao.UserDAOCollection_Impl;
 import com.kwetter.model.Kweet;
 import com.kwetter.model.Location;
+import com.kwetter.model.Role;
 import com.kwetter.model.User;
 import org.junit.*;
 
@@ -20,7 +21,8 @@ public class DAOCollectionImplTest {
         userDAOCollectionImpl = new UserDAOCollection_Impl();
         kweetDAOCollectionImpl = new KweetDAOCollection_Impl();
         Location location = new Location(1,1,"Venlo");
-        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl");
+        Role role = new Role("Moderater");
+        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl",role);
         userDAOCollectionImpl.createUser(user);
     }
 
@@ -28,7 +30,8 @@ public class DAOCollectionImplTest {
     @Test
     public void testCreateUser() throws Exception {
         Location location = new Location(1,1,"Venlo");
-        User user = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl");
+        Role role = new Role("Moderater");
+        User user = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl",role);
         userDAOCollectionImpl.createUser(user);
         assertEquals(user, userDAOCollectionImpl.findUserByUserName("Niek"));
     }
@@ -36,10 +39,11 @@ public class DAOCollectionImplTest {
     @Test
     public void testGetAllUser() throws Exception {
         Location location = new Location(1,1,"Venlo");
-        User user1 = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl");
+        Role role = new Role("Moderater");
+        User user1 = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl",role);
         userDAOCollectionImpl.createUser(user1);
         assertEquals(2, userDAOCollectionImpl.getAllUsers().size());
-        User user2 = new User("Piet","TEST","Hello im Piet",location,"www.piet.nl");
+        User user2 = new User("Piet","TEST","Hello im Piet",location,"www.piet.nl",role);
         userDAOCollectionImpl.createUser(user2);
         assertEquals(3, userDAOCollectionImpl.getAllUsers().size());
     }
@@ -47,7 +51,8 @@ public class DAOCollectionImplTest {
     @Test
     public void testRemoveUser() throws Exception {
         Location location = new Location(1,1,"Venlo");
-        User user1 = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl");
+        Role role = new Role("Moderater");
+        User user1 = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl",role);
         userDAOCollectionImpl.createUser(user1);
         userDAOCollectionImpl.removeUser(user1);
         assertEquals(null, userDAOCollectionImpl.findUserByUserName("Niek"));
@@ -62,7 +67,7 @@ public class DAOCollectionImplTest {
     public void testCreateKweet() throws Exception {
         User user = userDAOCollectionImpl.findUserByUserName("Test user");
         Kweet kweet = new Kweet("test",user);
-        kweetDAOCollectionImpl.create(kweet, user);
+        kweetDAOCollectionImpl.create(kweet);
         assertEquals(1,kweetDAOCollectionImpl.findAll().size());
     }
 
@@ -70,7 +75,7 @@ public class DAOCollectionImplTest {
     public void testRemoveKweet() throws Exception {
         User user = userDAOCollectionImpl.findUserByUserName("Test user");
         Kweet kweet = new Kweet("test",user);
-        kweetDAOCollectionImpl.create(kweet, user);
+        kweetDAOCollectionImpl.create(kweet);
         assertEquals(1,kweetDAOCollectionImpl.findAll().size());
 
         kweetDAOCollectionImpl.removeKweet(kweet , user);

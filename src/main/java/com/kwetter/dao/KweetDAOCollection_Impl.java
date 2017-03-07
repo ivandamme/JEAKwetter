@@ -18,8 +18,7 @@ public class KweetDAOCollection_Impl implements KweetDAO  {
     }
 
     @Override
-    public void create(Kweet kweet,User user) {
-        user.addKweet(kweet);
+    public void create(Kweet kweet) {
         kweets.add(kweet);
     }
 
@@ -37,5 +36,15 @@ public class KweetDAOCollection_Impl implements KweetDAO  {
     @Override
     public List<Kweet> findAll() {
         return kweets;
+    }
+
+    @Override
+    public Kweet get(long id) {
+        for (Kweet k: kweets) {
+            if(k.getId()==id){
+                return k;
+            }
+        }
+        return null;
     }
 }

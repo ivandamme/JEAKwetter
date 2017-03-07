@@ -1,14 +1,18 @@
 package com.kwetter.controller;
 
+import com.kwetter.dao.KweetDAO_Impl;
 import com.kwetter.dao.LocationDAO_Impl;
 import com.kwetter.dao.UserDAO_Impl;
+import com.kwetter.model.Kweet;
 import com.kwetter.model.Location;
+import com.kwetter.model.Role;
 import com.kwetter.model.User;
 
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.*;
 import javax.inject.*;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,31 +23,45 @@ import java.util.List;
 @Named
 public class testcontroller {
 
-    @PersistenceContext
-    EntityManager entityManager;
 
     @Inject
     @SessionScoped
-    LocationDAO_Impl locationDAOimpl ;
+    UserDAO_Impl UDC;
+
+    @Inject
+    @SessionScoped
+    KweetDAO_Impl KDC;
 
     public List<User> getUsers() {
         Location location = new Location(1, 1, "Venlo");
-
+        Role role = new Role("Moderater");
 
         User userToAdd = new User(
-                "Rutger",
-                "I'm the developer",
-                "Eindhoven",
+                "Niek",
+                "gekkePassword",
+                "Venlo",
                 location,
-                "https://pyld.io"
+                "https://pyld.io",
+                role
         );
 
 
-        locationDAOimpl.createLocation(location);
+        Kweet kweetToAdd1 = new Kweet(
+                "Kweet 1",
+                userToAdd
+        );
+
+        Kweet kweetToAdd2 = new Kweet(
+                "Kweet 1",
+                userToAdd
+        );
+
+        userToAdd.addKweet(kweetToAdd1);
+        userToAdd.addKweet(kweetToAdd2);
+        UDC.createUser(userToAdd);
+        return UDC.getAllUsers();
 
 
-        TypedQuery<User> query = entityManager.createNamedQuery("Account.findAll", User.class);
-        return query.getResultList();
     }
 }
 

@@ -12,6 +12,8 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "Kweet.findAll",
                 query = "SELECT k FROM Kweet k"),
+        @NamedQuery(name = "Kweet.getById",
+                query = "SELECT k FROM Kweet k where k.id = :id")
 })
 public class Kweet implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +46,7 @@ public class Kweet implements Serializable{
     }
 
     public void setText(String content) {
-        this.text = text;
+        this.text = content;
     }
 
     public Date getDate() {
@@ -57,6 +59,8 @@ public class Kweet implements Serializable{
 
     public void setPoster(User poster) {
         this.poster=poster;
+        if (!poster.getKweets().contains(this))
+            poster.addKweet(this);
     }
 
 

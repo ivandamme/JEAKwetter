@@ -13,7 +13,7 @@ public interface KweetDAO {
      * Creates a new Kweet object
 
      */
-    void create(Kweet k,User u);
+    void create(Kweet k);
 
 
     /**
@@ -33,10 +33,14 @@ public interface KweetDAO {
 
     /**
      * Returns all kweets in this application
-     * @return
+     * @return list of kweets
      */
     List<Kweet> findAll() ;
 
-
+    /**
+     * Returns a kweet based on id
+     * @return kweet
+     */
+    Kweet get(long id);
 
 }

@@ -20,7 +20,7 @@ public class KweetDAO_Impl implements KweetDAO {
     private EntityManager em;
 
     @Override
-    public void create(Kweet k,User user) {
+    public void create(Kweet k) {
         em.persist(k);
     }
 
@@ -37,6 +37,11 @@ public class KweetDAO_Impl implements KweetDAO {
     @Override
     public List<Kweet> findAll() {
         return (List<Kweet>) em.createNamedQuery("Kweet.findAll", Kweet.class).getResultList();
+    }
+
+    @Override
+    public Kweet get(long id) {
+        return (Kweet) em.createNamedQuery("Kweet.getById", Kweet.class).getSingleResult();
     }
 
 

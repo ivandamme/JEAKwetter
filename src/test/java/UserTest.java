@@ -1,5 +1,6 @@
 import com.kwetter.model.Kweet;
 import com.kwetter.model.Location;
+import com.kwetter.model.Role;
 import com.kwetter.model.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,18 +20,19 @@ public class UserTest {
     @Before
     public void setUp() throws Exception {
         users = new ArrayList<>();
-        Location testlocation = new Location(1,1,"Venlo");
+        Location testlocation = new Location(1, 1, "Venlo");
+        Role role = new Role("Moderater");
 
         for (int i = 0; i < 10; i++) {
             users.add(new User(" Test User " + i, " Test Password " + i, "Test Bio " + i,
-                    testlocation, "Test website " + i));
+                    testlocation, "Test website " + i,role));
         }
 
         following = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             following.add(new User(" Test following " + i, " Test Password " + i, "Test Bio " + i,
-                    testlocation, "Test website " + i));
+                    testlocation, "Test website " + i,role));
         }
     }
 
@@ -43,8 +45,12 @@ public class UserTest {
             Kweet testKweet = new Kweet("Test Kweet " + i, users.get(1));
             users.get(1).addKweet(testKweet);
         }
+        assertEquals("Expected a different number of kweets", 10, users.get(1).getKweets().size());
 
-        assertEquals("Expected a different number of kweers",10,users.get(1).getKweets().size());
+        Kweet nullkweet = null;
+        users.get(1).addKweet(nullkweet);
+
+        assertEquals("Expected a different number of kweets", 10, users.get(1).getKweets().size());
     }
 
     @Test
@@ -70,7 +76,7 @@ public class UserTest {
         users.get(1).addFollowing(following.get(1));
         users.get(1).addFollowing(following.get(2));
         assertEquals("Expected a different number of followings", 3, users.get(1).getFollowing().size());
-       users.get(1).removeFollowing(following.get(0));
+        users.get(1).removeFollowing(following.get(0));
         assertEquals("Expected a different number of followings", 2, users.get(1).getFollowing().size());
     }
 

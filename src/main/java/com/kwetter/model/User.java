@@ -24,20 +24,22 @@ public class User implements Serializable {
     private String bio;
     private String website;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Role role;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Location location;
 
     @ManyToMany
     private List<User> following;
 
-    @OneToMany(mappedBy = "poster")
+    @OneToMany(mappedBy = "poster",cascade = CascadeType.PERSIST)
     private List<Kweet> kweets;
 
     public User() {
     }
 
-    public User(String userName, String password, String bio, Location location, String website) {
+    public User(String userName, String password, String bio, Location location, String website,Role role) {
         this.userName = userName;
         this.password = password;
         this.bio = bio;
@@ -45,6 +47,7 @@ public class User implements Serializable {
         this.website = website;
         this.following = new ArrayList<>();
         this.kweets = new ArrayList<>();
+        this.role = role;
     }
 
     public long getId() {
@@ -91,10 +94,17 @@ public class User implements Serializable {
         this.website = website;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public List<User> getFollowing() {
         return following;
     }
-
 
     public List<Kweet> getKweets() {
         return kweets;
