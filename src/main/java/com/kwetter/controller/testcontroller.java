@@ -33,6 +33,14 @@ public class testcontroller {
     KweetDAO_Impl KDC;
 
     public List<User> getUsers() {
+
+        makeSomeUsers();
+        return UDC.getAllUsers();
+
+    }
+
+    public void makeSomeUsers()
+    {
         Location location = new Location(1, 1, "Venlo");
         Role role = new Role("Moderater");
 
@@ -59,9 +67,6 @@ public class testcontroller {
         userToAdd.addKweet(kweetToAdd1);
         userToAdd.addKweet(kweetToAdd2);
         UDC.createUser(userToAdd);
-        return UDC.getAllUsers();
-
-
     }
 }
 

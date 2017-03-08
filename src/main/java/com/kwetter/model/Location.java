@@ -9,6 +9,12 @@ import java.util.List;
  */
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Location.findAll",
+                query = "SELECT l FROM Location l"),
+        @NamedQuery(name = "Location.findByName",
+                query = "SELECT l FROM Location l where l.city = :cityName")
+})
 public class Location implements Serializable {
 
     @Id

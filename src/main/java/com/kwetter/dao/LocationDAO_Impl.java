@@ -5,10 +5,7 @@ import com.kwetter.model.User;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -35,6 +32,18 @@ public class LocationDAO_Impl implements LocationDAO {
     @Override
     public void removeLocation(Location location) {
         em.remove(location);
+    }
+
+    @Override
+    public List<Location> getAll() {
+        Query query = em.createNamedQuery("Location.findAll");
+        return (List<Location>) query.getResultList();
+    }
+
+    @Override
+    public List<Location> getByName(String name) {
+        Query query  = em.createNamedQuery("Location.findByName");
+        return (List<Location>) query.getResultList();
     }
 
 

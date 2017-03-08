@@ -25,14 +25,14 @@ public class UserTest {
 
         for (int i = 0; i < 10; i++) {
             users.add(new User(" Test User " + i, " Test Password " + i, "Test Bio " + i,
-                    testlocation, "Test website " + i,role));
+                    testlocation, "Test website " + i, role));
         }
 
         following = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             following.add(new User(" Test following " + i, " Test Password " + i, "Test Bio " + i,
-                    testlocation, "Test website " + i,role));
+                    testlocation, "Test website " + i, role));
         }
     }
 
@@ -55,7 +55,11 @@ public class UserTest {
 
     @Test
     public void removeKweet() throws Exception {
-
+        Kweet testKweet = new Kweet("Test Kweet " , users.get(1));
+        users.get(1).addKweet(testKweet);
+        assertEquals("Expected different number of kweets",1,users.get(1).getKweets().size());
+        users.get(1).removeKweet(testKweet);
+        assertEquals("Expected different number of kweets",0,users.get(1).getKweets().size());
     }
 
     @Test

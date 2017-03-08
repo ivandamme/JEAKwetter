@@ -127,7 +127,9 @@ public class User implements Serializable {
      * @param kweet
      */
     public void removeKweet(Kweet kweet) {
-        this.kweets.remove(kweet);
+        if (kweet != null && kweets != null && kweets.contains(kweet)) {
+            this.kweets.remove(kweet);
+        }
     }
 
     /**

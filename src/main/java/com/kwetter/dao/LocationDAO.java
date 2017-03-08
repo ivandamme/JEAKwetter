@@ -31,7 +31,18 @@ public interface LocationDAO {
      */
     void removeLocation(Location location);
 
+    /**
+     * Returns all locations
+     * @return list of locations
+     */
+    List<Location> getAll();
 
+    /**
+     * Returns a list of location by name
+     * @param name the exact name of the location
+     * @return
+     */
+    List<Location> getByName(String name);
 
 
 
