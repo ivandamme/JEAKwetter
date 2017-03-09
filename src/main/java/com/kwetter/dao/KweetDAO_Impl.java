@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by Niek on 3-3-2017.
  */
+
 @LocalBean
 @Stateless
 public class KweetDAO_Impl implements KweetDAO {

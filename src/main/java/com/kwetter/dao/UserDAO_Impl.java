@@ -2,8 +2,7 @@ package com.kwetter.dao;
 
 import com.kwetter.model.User;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.ejb.*;
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,8 +12,6 @@ import java.util.List;
 @LocalBean
 @Stateless
 public class UserDAO_Impl implements UserDAO {
-
-
 
     @PersistenceContext(unitName = "kwetterPU")
     private EntityManager em ;

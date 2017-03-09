@@ -2,8 +2,7 @@ package com.kwetter.service;
 
 import com.kwetter.dao.*;
 import com.kwetter.model.Kweet;
-import com.kwetter.model.Location;
-import com.kwetter.model.Role;
+
 import com.kwetter.model.User;
 
 import javax.ejb.*;
@@ -30,35 +29,50 @@ public class KweetService {
 
 */
 
-    //Create user
+
+    /**
+     * Used for mockito testing only!
+     *
+     * @param dao dao to set
+     */
+    public void setKwetterDAO(KweetDAO_Impl dao) {
+        kweetDAO = dao;
+    }
+
+    /**
+     * Used for mockito testing only!
+     *
+     * @param dao dao to set
+     */
+    public void setUserDAO(UserDAO_Impl dao) {
+        userDAO = dao;
+    }
+
+
+    /**
+     * Creates a new user in the kwetter application
+     *
+     * @param user the new user
+     */
     public void createUser(User user) {
         userDAO.createUser(user);
     }
 
-    //change username
-    public void changeUserName(String oldName, String newName) {
-        User user = userDAO.findUserByUserName(oldName);
-        user.setUserName(newName);
-        userDAO.editUser(user);
-    }
-
-    //change bio
-    public void changeBio(String userName, String bio) {
-        User user = userDAO.findUserByUserName(userName);
-        user.setBio(bio);
+    /**
+     * Updates user information in the kwetter application.
+     * @param user User to be updated
+     */
+    public void editUser(User user) {
         userDAO.editUser(user);
     }
 
     //Show following
-    public List<User> getFollowing(String userName) {
-        User user = userDAO.findUserByUserName(userName);
-        return user.getFollowing();
+    public List<User> getFollowing(User user) {
+        return userDAO.getAllFollowing(user);
     }
 
     //Place Kweet
-    public void placeKweet(String userName, String text) {
-        User user = userDAO.findUserByUserName(userName);
-        Kweet kweet = new Kweet(text, user);
+    public void placeKweet(Kweet kweet) {
         kweetDAO.create(kweet);
     }
 
@@ -82,7 +96,12 @@ public class KweetService {
         return userDAO.getAllUsers();
     }
 
-    //Find user by username
+    /**
+     * Returns a user with the given username
+     *
+     * @param userName the username
+     * @return a user object
+     */
     public User findByUserName(String userName) {
         return userDAO.findUserByUserName(userName);
     }
@@ -105,18 +124,13 @@ public class KweetService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    //register
-    public void register(String userName, String password) {
-        User user = new User();
-        user.setUserName(userName);
-        user.setPassword(password);
-        userDAO.createUser(user);
-    }
-
-    //follow user
-    public void followUser(String leaders, String followings) {
-        User following = userDAO.findUserByUserName(followings);
-        User leader = userDAO.findUserByUserName(leaders);
+    /**
+     * Follows a user
+     *
+     * @param leaders    the person following someone
+     * @param followings the person being followed
+     */
+    public void followUser(User leader, User following) {
         leader.addFollowing(following);
         userDAO.editUser(leader);
     }
