@@ -20,10 +20,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class DAOJpaImplTest {
 
-    @PersistenceContext(unitName = "kwetterPU")
-    private EntityManager em ;
+
 
     private UserDAO_Impl userDao;
+    private EntityManager em;
 
     public DAOJpaImplTest() {
         userDao = new UserDAO_Impl();
