@@ -36,4 +36,33 @@ public class KweetApi {
         return kweetService.getKweetById(id);
     }
 
+
+    @GET
+    @Path("/user/{id}")
+    @Produces(APPLICATION_JSON)
+    public List<Kweet> getKweetsByUserName(@PathParam("id") String userName) {
+        List<Kweet> kweetList = kweetService.findByUserName(userName).getKweets();
+        return kweetList;
+    }
+
+    @POST
+    @Path("/insert")
+    @Produces(APPLICATION_JSON)
+    public Kweet insertKweet(@FormParam("userName") String userName, @FormParam("text") String text) {
+        Kweet kweet = new Kweet();
+        kweet.setText(text);
+        kweet.setPoster(kweetService.findByUserName(userName));
+        return kweet;
+    }
+
+    @POST
+    @Path("/delete")
+    @Produces(APPLICATION_JSON)
+    public Kweet deleteKweet(@FormParam("id") long id) {
+        kweetService.removeKweet(id);
+       return kweetService.getKweetById(id);
+    }
+
+
+
 }

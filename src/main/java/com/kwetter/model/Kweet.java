@@ -24,7 +24,7 @@ public class Kweet implements Serializable{
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private User poster;
 
     public Kweet() {

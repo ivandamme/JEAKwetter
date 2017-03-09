@@ -43,18 +43,37 @@ public class UserDAO_Impl implements UserDAO {
 
     @Override
     public User findUserByUserName(String userName) {
-        User u = em.createNamedQuery("Account.findByUsername", User.class)
-                .setParameter("userName", userName).getSingleResult();
-        return u;
+        Query q = em.createNamedQuery("Account.findByUsername");
+        q.setParameter("userName", userName);
+        try{
+            return (User) q.getSingleResult();
+        }
+        catch (NoResultException ex) {
+            return null;
+        }
     }
 
     @Override
     public List<User> getAllFollowing(User user) {
-        return user.getFollowing();
+        Query q = em.createQuery("SELECT u from User u inner join u.following f where u.id=:id");
+        q.setParameter("id", user.getId());
+        List<User> userlist = q.getResultList();
+        try {
+            return userlist;
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
     @Override
     public int getAmountOfFollowing(User user) {
-        return user.getFollowing().size();
+        Query q = em.createQuery("SELECT u from User u inner join u.following f where u.id=:id");
+        q.setParameter("id", user.getId());
+        List<User> userlist = q.getResultList();
+        try {
+            return userlist.size();
+        } catch (NoResultException ex) {
+            return 0;
+        }
     }
 }

@@ -35,7 +35,7 @@ public class User implements Serializable {
     @ManyToMany
     private List<User> following;
 
-    @OneToMany(mappedBy = "poster",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "poster",cascade = CascadeType.ALL)
     private List<Kweet> kweets;
 
     public User() {

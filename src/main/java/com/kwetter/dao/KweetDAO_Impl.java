@@ -45,8 +45,14 @@ public class KweetDAO_Impl implements KweetDAO {
 
     @Override
     public Kweet get(long id) {
-        return (Kweet) em.createNamedQuery("Kweet.getById", Kweet.class)
-                .setParameter("id", id).getSingleResult();
+        Query q = em.createNamedQuery("Kweet.getById");
+        q.setParameter("id", id);
+        try{
+            return (Kweet) q.getSingleResult();
+        }
+        catch (NoResultException ex) {
+            return null;
+        }
     }
 
 

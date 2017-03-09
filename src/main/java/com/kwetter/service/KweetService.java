@@ -6,6 +6,7 @@ import com.kwetter.model.Kweet;
 import com.kwetter.model.User;
 
 import javax.ejb.*;
+import javax.faces.bean.ApplicationScoped;
 import javax.inject.*;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 
 @Stateless
+@ApplicationScoped
 @Named
 public class KweetService {
 
