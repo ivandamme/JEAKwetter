@@ -41,7 +41,7 @@ public class UserApi {
     @Path("following/{userName}")
     @Produces(APPLICATION_JSON)
     public List<User> getFollowing(@PathParam("userName") String userName) {
-        return kweetService.getFollowing(userName);
+        return kweetService.getFollowing(kweetService.findByUserName(userName));
     }
 
     @GET
@@ -50,8 +50,6 @@ public class UserApi {
     public int count() {
         return kweetService.getUsers().size();
     }
-
-
 
 
 }

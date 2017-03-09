@@ -1,4 +1,5 @@
 import com.kwetter.dao.KweetDAO_Impl;
+import com.kwetter.dao.UserDAO;
 import com.kwetter.dao.UserDAO_Impl;
 import com.kwetter.model.Kweet;
 import com.kwetter.model.User;
@@ -45,7 +46,11 @@ public class kweetServiceTest {
 
     @Test
     public void editUser() throws Exception {
-
+        User user1 = mock(User.class);
+        ks.createUser(user1);
+        user1.setPassword("test");
+        ks.editUser(user1);
+        Mockito.verify(userDAO, Mockito.times(1)).editUser(user1);
 
     }
 
@@ -65,32 +70,24 @@ public class kweetServiceTest {
 
     @Test
     public void removeKweet() throws Exception {
-
+        Kweet kweet1 = mock(Kweet.class);
+        User user1 = mock(User.class);
+        kweet1.setPoster(user1);
+        ks.editKweet(kweet1);
+        ks.removeKweet(kweet1.getId());
+        Mockito.verify(kwetterDAO, Mockito.times(1)).removeKweet(kweet1,kweet1.getPoster());
     }
 
-    @Test
-    public void getUsers() throws Exception {
-
-    }
-
-    @Test
-    public void changeRole() throws Exception {
-
-    }
-
-    @Test
-    public void logIn() throws Exception {
-
-    }
-
-    @Test
-    public void register() throws Exception {
-
-    }
 
     @Test
     public void followUser() throws Exception {
-
+        User user1 = mock(User.class);
+        ks.createUser(user1);
+        User user2 = mock(User.class);
+        ks.createUser(user2);
+        ks.followUser(user1, user2);
+        ks.editUser(user1);
+        Mockito.verify(userDAO, Mockito.times(2)).editUser(user1);
     }
 
 }

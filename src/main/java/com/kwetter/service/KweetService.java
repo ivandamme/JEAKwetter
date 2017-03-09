@@ -58,13 +58,22 @@ public class KweetService {
         userDAO.createUser(user);
     }
 
-    /**
+      /**
      * Updates user information in the kwetter application.
      * @param user User to be updated
      */
     public void editUser(User user) {
         userDAO.editUser(user);
     }
+
+    /**
+     * Updates kweet information in the kwetter application.
+     * @param kweet Kweet to be updated
+     */
+    public void editKweet(Kweet kweet) {
+        kweetDAO.edit(kweet);
+    }
+
 
     //Show following
     public List<User> getFollowing(User user) {
@@ -104,24 +113,6 @@ public class KweetService {
      */
     public User findByUserName(String userName) {
         return userDAO.findUserByUserName(userName);
-    }
-
-    //Change users role
-    public void changeRole(String userName, long rolId) {
-        throw new UnsupportedOperationException("Not supported yet.");
-       /* Role role = rolDao.get(rolId);
-        User user = userDAO.findUserByUserName(userName);
-        user.setRole(role);
-        userDAO.editUser(user);
-        */
-    }
-
-    public boolean logIn(String userName, String password) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void logOut() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
