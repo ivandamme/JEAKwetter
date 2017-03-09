@@ -7,6 +7,7 @@ import com.kwetter.model.Role;
 import com.kwetter.model.User;
 import org.junit.*;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -30,6 +31,7 @@ public class DAOJpaImplTest {
 
     @Before
     public void setUp() {
+        //test
         em.getTransaction().begin();
     }
 
