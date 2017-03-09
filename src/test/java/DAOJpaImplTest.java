@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,8 +20,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class DAOJpaImplTest {
 
+    @PersistenceContext(unitName = "kwetterPU")
+    private EntityManager em ;
+
     private UserDAO_Impl userDao;
-    private EntityManager em;
 
     public DAOJpaImplTest() {
         userDao = new UserDAO_Impl();
