@@ -7,6 +7,7 @@ import com.kwetter.model.Kweet;
 import com.kwetter.model.Location;
 import com.kwetter.model.Role;
 import com.kwetter.model.User;
+import com.kwetter.service.KweetService;
 
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.*;
@@ -31,6 +32,8 @@ public class testcontroller {
     @Inject
     @SessionScoped
     KweetDAO_Impl KDC;
+
+
 
     public List<User> getUsers() {
 

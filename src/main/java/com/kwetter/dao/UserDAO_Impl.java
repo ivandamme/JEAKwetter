@@ -19,6 +19,10 @@ public class UserDAO_Impl implements UserDAO {
     @PersistenceContext(unitName = "kwetterPU")
     private EntityManager em ;
 
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
     @Override
     public void createUser(User user) {
         em.persist(user);

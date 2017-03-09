@@ -30,10 +30,10 @@ public class KweetService {
 
 */
 
-   // private UserDAO userDAO = new UserDAO_Impl();
-    //private KweetDAO kweetDAO = new KweetDAO_Impl();
-
-
+    //Create user
+    public void createUser(User user) {
+        userDAO.createUser(user);
+    }
 
     //change username
     public void changeUserName(String oldName, String newName) {
@@ -49,17 +49,8 @@ public class KweetService {
         userDAO.editUser(user);
     }
 
-    //get last 10 kweets
-    public List<Kweet> getRecentKweets(String userName) {
-        User user = userDAO.findUserByUserName(userName);
-        int kweets = user.getKweets().size();
-        if (kweets > 10)
-            kweets = 10;
-        return user.getKweets().subList(0, kweets);
-    }
-
     //Show following
-    public List<User> getFollowers(String userName) {
+    public List<User> getFollowing(String userName) {
         User user = userDAO.findUserByUserName(userName);
         return user.getFollowing();
     }
@@ -67,13 +58,23 @@ public class KweetService {
     //Place Kweet
     public void placeKweet(String userName, String text) {
         User user = userDAO.findUserByUserName(userName);
-        Kweet kweet = new Kweet(text,user);
+        Kweet kweet = new Kweet(text, user);
         kweetDAO.create(kweet);
     }
 
     //Remove Kweet
     public void removeKweet(long id) {
-       kweetDAO.removeKweet(kweetDAO.get(id),kweetDAO.get(id).getPoster());
+        kweetDAO.removeKweet(kweetDAO.get(id), kweetDAO.get(id).getPoster());
+    }
+
+    //Get all Kweets
+    public List<Kweet> getKweets() {
+        return kweetDAO.findAll();
+    }
+
+    //Find Kweet by ID
+    public Kweet getKweetById(long id) {
+        return kweetDAO.get(id);
     }
 
     //Get all users

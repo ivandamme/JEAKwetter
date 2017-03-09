@@ -19,6 +19,10 @@ public class LocationDAO_Impl implements LocationDAO {
     @PersistenceContext(unitName = "kwetterPU")
     private EntityManager em ;
 
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
     @Override
     public void createLocation(Location location) {
         em.persist(location);

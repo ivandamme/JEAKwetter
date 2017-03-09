@@ -19,6 +19,9 @@ public class KweetDAO_Impl implements KweetDAO {
     @PersistenceContext(unitName = "kwetterPU")
     private EntityManager em;
 
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
     @Override
     public void create(Kweet k) {
         em.persist(k);
@@ -41,7 +44,8 @@ public class KweetDAO_Impl implements KweetDAO {
 
     @Override
     public Kweet get(long id) {
-        return (Kweet) em.createNamedQuery("Kweet.getById", Kweet.class).getSingleResult();
+        return (Kweet) em.createNamedQuery("Kweet.getById", Kweet.class)
+                .setParameter("id", id).getSingleResult();
     }
 
 
