@@ -34,7 +34,7 @@ public class KweetDAO_Impl implements KweetDAO {
     }
 
     @Override
-    public void removeKweet(Kweet k,User user) {
+    public void removeKweet(Kweet k) {
         em.remove(k);
     }
 

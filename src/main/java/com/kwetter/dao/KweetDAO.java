@@ -28,7 +28,7 @@ public interface KweetDAO {
      *
      * @param k
      */
-    void removeKweet(Kweet k, User u);
+    void removeKweet(Kweet k);
 
 
     /**

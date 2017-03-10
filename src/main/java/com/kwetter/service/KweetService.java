@@ -88,8 +88,8 @@ public class KweetService {
     }
 
     //Remove Kweet
-    public void removeKweet(long id) {
-        kweetDAO.removeKweet(kweetDAO.get(id), kweetDAO.get(id).getPoster());
+    public void removeKweet(Kweet kweet) {
+        kweetDAO.removeKweet(kweet);
     }
 
     //Get all Kweets

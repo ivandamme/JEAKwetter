@@ -78,7 +78,7 @@ public class DAOCollectionImplTest {
         kweetDAOCollectionImpl.create(kweet);
         assertEquals(1,kweetDAOCollectionImpl.findAll().size());
 
-        kweetDAOCollectionImpl.removeKweet(kweet , user);
+        kweetDAOCollectionImpl.removeKweet(kweet);
         assertEquals(0,kweetDAOCollectionImpl.findAll().size());
     }
 

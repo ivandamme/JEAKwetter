@@ -59,7 +59,7 @@ public class KweetApi {
     @Path("/delete")
     @Produces(APPLICATION_JSON)
     public Kweet deleteKweet(@FormParam("id") long id) {
-        kweetService.removeKweet(id);
+        kweetService.removeKweet(kweetService.getKweetById(id));
        return kweetService.getKweetById(id);
     }
 

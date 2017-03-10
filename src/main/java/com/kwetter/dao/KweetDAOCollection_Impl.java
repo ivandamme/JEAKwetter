@@ -28,8 +28,7 @@ public class KweetDAOCollection_Impl implements KweetDAO  {
     }
 
     @Override
-    public void removeKweet(Kweet kweet,User user) {
-        user.removeKweet(kweet);
+    public void removeKweet(Kweet kweet) {
         kweets.remove(kweet);
     }
 

@@ -74,8 +74,8 @@ public class kweetServiceTest {
         User user1 = mock(User.class);
         kweet1.setPoster(user1);
         ks.editKweet(kweet1);
-        ks.removeKweet(kweet1.getId());
-        Mockito.verify(kwetterDAO, Mockito.times(1)).removeKweet(kweet1,kweet1.getPoster());
+        ks.removeKweet(kweet1);
+        Mockito.verify(kwetterDAO, Mockito.times(1)).removeKweet(kweet1);
     }
 
 
