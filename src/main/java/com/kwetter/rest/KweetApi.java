@@ -3,6 +3,7 @@ package com.kwetter.rest;
 import com.kwetter.model.Kweet;
 import com.kwetter.service.KweetService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -56,6 +57,7 @@ public class KweetApi {
     }
 
     @POST
+    @RolesAllowed("admin_role")
     @Path("/delete")
     @Produces(APPLICATION_JSON)
     public Kweet deleteKweet(@FormParam("id") long id) {

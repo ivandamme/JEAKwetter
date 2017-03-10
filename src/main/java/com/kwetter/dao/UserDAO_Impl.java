@@ -3,7 +3,11 @@ package com.kwetter.dao;
 import com.kwetter.model.User;
 
 import javax.ejb.*;
+import javax.naming.InitialContext;
 import javax.persistence.*;
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 import java.util.List;
 
 /**

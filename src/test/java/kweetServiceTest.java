@@ -1,12 +1,10 @@
 import com.kwetter.dao.KweetDAO_Impl;
-import com.kwetter.dao.UserDAO;
 import com.kwetter.dao.UserDAO_Impl;
 import com.kwetter.model.Kweet;
 import com.kwetter.model.User;
 import com.kwetter.service.KweetService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;

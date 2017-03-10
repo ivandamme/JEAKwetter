@@ -52,6 +52,15 @@ public class KweetService {
 
 
     /**
+     * Used for mockito testing only!
+     *
+     * @param dao dao to set
+     */
+    public void setKweetDAO(KweetDAO_Impl dao) {
+        kweetDAO = dao;
+    }
+
+    /**
      * Creates a new user in the kwetter application
      *
      * @param user the new user

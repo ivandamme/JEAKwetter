@@ -1,17 +1,14 @@
-import com.kwetter.dao.KweetDAOCollection_Impl;
-import com.kwetter.dao.UserDAOCollection_Impl;
+import com.kwetter.dao.KweetDAO_Impl;
 import com.kwetter.dao.UserDAO_Impl;
-import com.kwetter.model.Kweet;
 import com.kwetter.model.Location;
 import com.kwetter.model.Role;
 import com.kwetter.model.User;
+import com.kwetter.service.KweetService;
 import org.junit.*;
-
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,22 +17,24 @@ import static org.junit.Assert.assertEquals;
  */
 public class DAOJpaImplTest {
 
-
-
-    private UserDAO_Impl userDao;
     private EntityManager em;
+    private KweetService kweetService;
+    private KweetDAO_Impl kweetDAO;
+    private UserDAO_Impl userDao;
 
-    public DAOJpaImplTest() {
+
+
+    @Before
+    public void setUp() {
+        kweetDAO = new KweetDAO_Impl();
         userDao = new UserDAO_Impl();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("kwetterPU");
         em = emf.createEntityManager();
         userDao.setEm(em);
-    }
-
-    @Before
-    public void setUp() {
-        //test
-        em.getTransaction().begin();
+        kweetDAO.setEm(em);
+        kweetService = new KweetService();
+        kweetService.setKweetDAO(kweetDAO);
+        kweetService.setUserDAO(userDao);
     }
 
     @Test
