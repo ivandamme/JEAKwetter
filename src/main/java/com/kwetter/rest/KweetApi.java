@@ -1,6 +1,7 @@
 package com.kwetter.rest;
 
 import com.kwetter.model.Kweet;
+import com.kwetter.model.User;
 import com.kwetter.service.KweetService;
 
 import javax.annotation.security.RolesAllowed;
@@ -28,7 +29,9 @@ public class KweetApi {
     @GET
     @Path("all")
     @Produces(APPLICATION_JSON)
-    public List<Kweet> getAllKweets() { return kweetService.getKweets(); }
+    public List<Kweet> getAllKweets() {
+        return kweetService.getKweets();
+    }
 
     @GET
     @Path("{ID}")
@@ -50,7 +53,7 @@ public class KweetApi {
     @Path("/insert")
     @Produces(APPLICATION_JSON)
     public Kweet insertKweet(@FormParam("userName") String userName, @FormParam("text") String text) {
-        Kweet kweet = new Kweet(text,kweetService.findByUserName(userName));
+        Kweet kweet = new Kweet(text, kweetService.findByUserName(userName));
         kweetService.placeKweet(kweet);
         return kweet;
     }
@@ -59,10 +62,10 @@ public class KweetApi {
     @Path("/delete")
     @Produces(APPLICATION_JSON)
     public Kweet deleteKweet(@FormParam("id") long id) {
-        kweetService.removeKweet(kweetService.getKweetById(id));
-       return kweetService.getKweetById(id);
+        Kweet kweet = kweetService.getKweetById(id);
+        kweetService.removeKweet(kweet);
+        return kweet;
     }
-
 
 
 }

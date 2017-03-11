@@ -1,6 +1,8 @@
 import com.kwetter.dao.KweetDAO_Impl;
 import com.kwetter.dao.UserDAO_Impl;
 import com.kwetter.model.Kweet;
+import com.kwetter.model.Location;
+import com.kwetter.model.Role;
 import com.kwetter.model.User;
 import com.kwetter.service.KweetService;
 import org.junit.Before;
@@ -61,16 +63,20 @@ public class kweetServiceTest {
 
     @Test
     public void placeKweet() throws Exception {
-        Kweet kweet1 = mock(Kweet.class);
+        Location location = new Location(1,1,"Venlo");
+        Role role = new Role("Moderater");
+        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl",role);
+        Kweet kweet1 = new Kweet("test",user);
         ks.placeKweet(kweet1);
         Mockito.verify(kwetterDAO, Mockito.times(1)).create(kweet1);
     }
 
     @Test
     public void removeKweet() throws Exception {
-        Kweet kweet1 = mock(Kweet.class);
-        User user1 = mock(User.class);
-        kweet1.setPoster(user1);
+        Location location = new Location(1,1,"Venlo");
+        Role role = new Role("Moderater");
+        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl",role);
+        Kweet kweet1 = new Kweet("test",user);
         ks.editKweet(kweet1);
         ks.removeKweet(kweet1);
         Mockito.verify(kwetterDAO, Mockito.times(1)).removeKweet(kweet1);

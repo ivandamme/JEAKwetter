@@ -101,11 +101,17 @@ public class KweetService {
 
     //Place Kweet
     public void placeKweet(Kweet kweet) {
+        User user = kweet.getPoster();
+        user.addKweet(kweet);
+        userDAO.editUser(user);
         kweetDAO.create(kweet);
     }
 
     //Remove Kweet
     public void removeKweet(Kweet kweet) {
+        User user = kweet.getPoster();
+        user.removeKweet(kweet);
+        userDAO.editUser(user);
         kweetDAO.removeKweet(kweet);
     }
 
