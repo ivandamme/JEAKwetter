@@ -66,11 +66,19 @@ public class KweetService {
      * @param user the new user
      */
     public void createUser(User user) {
-        userDAO.createUser(user);
+        Boolean exists = false;
+        for (User u : userDAO.getAllUsers()) {
+            if (u.getUserName().equals(user.getUserName())) {
+                exists = true;
+            }
+        }
+        if (!exists) userDAO.createUser(user);
+
     }
 
-      /**
+    /**
      * Updates user information in the kwetter application.
+     *
      * @param user User to be updated
      */
     public void editUser(User user) {
@@ -79,12 +87,12 @@ public class KweetService {
 
     /**
      * Updates kweet information in the kwetter application.
+     *
      * @param kweet Kweet to be updated
      */
     public void editKweet(Kweet kweet) {
         kweetDAO.edit(kweet);
     }
-
 
     //Show following
     public List<User> getFollowing(User user) {
@@ -99,6 +107,11 @@ public class KweetService {
     //Remove Kweet
     public void removeKweet(Kweet kweet) {
         kweetDAO.removeKweet(kweet);
+    }
+
+    //Remove User
+    public void removeUser(User user) {
+        userDAO.removeUser(user);
     }
 
     //Get all Kweets
@@ -129,11 +142,16 @@ public class KweetService {
     /**
      * Follows a user
      *
-     * @param leaders    the person following someone
-     * @param followings the person being followed
+     * @param leader    the person following someone
+     * @param following the person being followed
      */
     public void followUser(User leader, User following) {
         leader.addFollowing(following);
+        userDAO.editUser(leader);
+    }
+
+    public void removeFollower(User leader, User following) {
+        leader.removeFollowing(following);
         userDAO.editUser(leader);
     }
 

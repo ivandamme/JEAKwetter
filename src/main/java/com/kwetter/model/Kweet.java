@@ -1,4 +1,5 @@
 package com.kwetter.model;
+
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,8 +16,9 @@ import javax.persistence.*;
         @NamedQuery(name = "Kweet.getById",
                 query = "SELECT k FROM Kweet k where k.id = :id")
 })
-public class Kweet implements Serializable{
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Kweet implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String text;
@@ -24,7 +26,7 @@ public class Kweet implements Serializable{
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private User poster;
 
     public Kweet() {
@@ -58,12 +60,10 @@ public class Kweet implements Serializable{
     }
 
     public void setPoster(User poster) {
-        this.poster=poster;
+        this.poster = poster;
         if (!poster.getKweets().contains(this))
             poster.addKweet(this);
     }
-
-
 
 
 }

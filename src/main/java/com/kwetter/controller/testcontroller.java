@@ -26,6 +26,9 @@ public class testcontroller {
 
 
     @Inject
+    KweetService ks;
+
+    @Inject
     @SessionScoped
     UserDAO_Impl UDC;
 
@@ -56,6 +59,15 @@ public class testcontroller {
                 role
         );
 
+        User userToAdd2 = new User(
+                "NiekVolger",
+                "MaatwerkBoys",
+                "All aboard the maatwerk train",
+                location,
+                "https://pyld.io",
+                role
+        );
+
 
         Kweet kweetToAdd1 = new Kweet(
                 "Kweet 1",
@@ -63,13 +75,21 @@ public class testcontroller {
         );
 
         Kweet kweetToAdd2 = new Kweet(
-                "Kweet 1",
+                "Kweet 2",
                 userToAdd
+        );
+
+        Kweet kweetToAdd3 = new Kweet(
+                "Kweet 3",
+                userToAdd2
         );
 
         userToAdd.addKweet(kweetToAdd1);
         userToAdd.addKweet(kweetToAdd2);
-        UDC.createUser(userToAdd);
+        userToAdd2.addKweet(kweetToAdd3);
+
+        ks.createUser(userToAdd);
+        ks.createUser(userToAdd2);
     }
 }
 

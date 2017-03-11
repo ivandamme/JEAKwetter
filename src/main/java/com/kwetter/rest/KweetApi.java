@@ -50,14 +50,12 @@ public class KweetApi {
     @Path("/insert")
     @Produces(APPLICATION_JSON)
     public Kweet insertKweet(@FormParam("userName") String userName, @FormParam("text") String text) {
-        Kweet kweet = new Kweet();
-        kweet.setText(text);
-        kweet.setPoster(kweetService.findByUserName(userName));
+        Kweet kweet = new Kweet(text,kweetService.findByUserName(userName));
+        kweetService.placeKweet(kweet);
         return kweet;
     }
 
     @POST
-    @RolesAllowed("admin_role")
     @Path("/delete")
     @Produces(APPLICATION_JSON)
     public Kweet deleteKweet(@FormParam("id") long id) {

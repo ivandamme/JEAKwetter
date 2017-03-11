@@ -81,7 +81,7 @@ public class LoginBean {
             return "error";
         }
         Logger.getGlobal().log(Level.SEVERE, "USER: " + user.getUserName() + getPassword());
-        return "/faces/private/index.xhtml";
+        return "/index.xhtml";
     }
 
 
@@ -130,7 +130,7 @@ public class LoginBean {
             session.invalidate();
             System.out.println("Signout invoked");
             FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation
-                    (FacesContext.getCurrentInstance(), null, "/faces/index.xhtml");
+                    (FacesContext.getCurrentInstance(), null, "/index.xhtml");
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Error Signout -" + ex.getMessage());

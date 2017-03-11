@@ -54,4 +54,56 @@ public class UserApi {
     }
 
 
+    @POST
+    @Path("/remove")
+    @Produces(APPLICATION_JSON)
+    public String removeUser(@FormParam("userName") String userName) {
+        User user = kweetService.findByUserName(userName);
+        kweetService.removeUser(user);
+        return "User has been removed.";
+    }
+
+    @POST
+    @Path("/create")
+    @Produces(APPLICATION_JSON)
+    public String createUser(@FormParam("userName") String userName, @FormParam("password") String password) {
+        User user = new User(userName,password);
+        kweetService.createUser(user);
+        User addedUser = kweetService.findByUserName(userName);
+        if (addedUser != null) {
+            return user.getUserName() + " successfully added.";
+        }
+        return "User could not be added.";
+    }
+
+    @GET
+    @Path("addFollow/{leader}/{following}")
+    @Produces(APPLICATION_JSON)
+    public Collection<User> addFollower(@PathParam("leader") String usernameUser, @PathParam("following") String usernameFollow) {
+        User userLeader = kweetService.findByUserName(usernameUser);
+        User userFollowing = kweetService.findByUserName(usernameFollow);
+        if (userLeader.getUserName() != null || userFollowing.getUserName() != null) {
+            if (!userLeader.getFollowing().contains(userFollowing)) {
+                kweetService.followUser(userLeader,userFollowing);
+            }
+        }
+        return kweetService.getFollowing(userLeader);
+    }
+
+    @GET
+    @Path("unFollow/{leader}/{following}")
+    @Produces(APPLICATION_JSON)
+    public Collection<User> removeFollower(@PathParam("leader") String usernameUser, @PathParam("following") String usernameFollow) {
+        User userLeader = kweetService.findByUserName(usernameUser);
+        User userFollower = kweetService.findByUserName(usernameFollow);
+        if (userLeader.getUserName() != null || userFollower.getUserName() != null) {
+            if (userLeader.getFollowing().contains(userFollower)) {
+                kweetService.removeFollower(userLeader, userFollower);
+            }
+        }
+        return kweetService.getFollowing(userLeader);
+    }
+
+
+
 }
