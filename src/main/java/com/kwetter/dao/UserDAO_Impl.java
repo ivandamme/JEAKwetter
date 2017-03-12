@@ -18,7 +18,15 @@ import java.util.List;
 public class UserDAO_Impl implements UserDAO {
 
     @PersistenceContext(unitName = "kwetterPU")
-    private EntityManager em ;
+    private EntityManager em;
+
+    public UserDAO_Impl() {
+    }
+
+    public UserDAO_Impl(EntityManager em) {
+        this.em = em;
+    }
+
 
     public void setEm(EntityManager em) {
         this.em = em;
@@ -49,10 +57,9 @@ public class UserDAO_Impl implements UserDAO {
     public User findUserByUserName(String userName) {
         Query q = em.createNamedQuery("Account.findByUsername");
         q.setParameter("userName", userName);
-        try{
+        try {
             return (User) q.getSingleResult();
-        }
-        catch (NoResultException ex) {
+        } catch (NoResultException ex) {
             return null;
         }
     }

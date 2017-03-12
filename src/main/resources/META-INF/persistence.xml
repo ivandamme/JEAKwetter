@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
+<persistence-unit name="kwetterPUTest" transaction-type="RESOURCE_LOCAL">
+    <class>com.kwetter.model.User</class>
+    <class>com.kwetter.model.Kweet</class>
+    <class>com.kwetter.model.Location</class>
+    <class>com.kwetter.model.Role</class>
+    <properties>
+        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://pyld.io:3306/niek_jea" />
+        <property name="javax.persistence.jdbc.user" value="niek_jea" />
+        <property name="javax.persistence.jdbc.password" value="eWrw627$" />
+        <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+    </properties>
+
+</persistence-unit>
 <persistence-unit name="kwetterPU" transaction-type="JTA">
+
 
     <jta-data-source>jdbc/test_pool</jta-data-source>
 
