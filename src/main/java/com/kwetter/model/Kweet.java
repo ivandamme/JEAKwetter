@@ -23,7 +23,10 @@ public class Kweet implements Serializable {
 
     private String text;
 
+
+
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+
     private Date date;
 
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
@@ -55,15 +58,23 @@ public class Kweet implements Serializable {
         return date;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public User getPoster() {
         return poster;
     }
 
-    public void setPoster(User poster) {
-        this.poster = poster;
-        if (!poster.getKweets().contains(this))
-            poster.addKweet(this);
-    }
+//    public void setPoster(User poster) {
+//        this.poster = poster;
+//        if (!poster.getKweets().contains(this))
+//            poster.addKweet(this);
+//    }
 
 
 }

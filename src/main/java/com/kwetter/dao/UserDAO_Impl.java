@@ -66,25 +66,31 @@ public class UserDAO_Impl implements UserDAO {
 
     @Override
     public List<User> getAllFollowing(User user) {
-        Query q = em.createQuery("SELECT u from User u inner join u.following f where u.id=:id");
-        q.setParameter("id", user.getId());
-        List<User> userlist = q.getResultList();
-        try {
-            return userlist;
-        } catch (NoResultException ex) {
-            return null;
-        }
+        User findUser = findUserByUserName(user.getUserName());
+        return findUser.getFollowing();
+
+//        Query q = em.createQuery("SELECT u FROM User u where u.id in (select f.id from u.following f where u.id =:id)");
+//        q.setParameter("id", user.getId());
+//        List<User> userlist = q.getResultList();
+//        try {
+//            return userlist;
+//        } catch (NoResultException ex) {
+//            return null;
+//        }
     }
 
     @Override
     public int getAmountOfFollowing(User user) {
-        Query q = em.createQuery("SELECT u from User u inner join u.following f where u.id=:id");
-        q.setParameter("id", user.getId());
-        List<User> userlist = q.getResultList();
-        try {
-            return userlist.size();
-        } catch (NoResultException ex) {
-            return 0;
-        }
+        User findUser = findUserByUserName(user.getUserName());
+        return findUser.getFollowing().size();
+
+//        Query q = em.createQuery("SELECT u from User u inner join u.following f where u.id=:id");
+//        q.setParameter("id", user.getId());
+//        List<User> userlist = q.getResultList();
+//        try {
+//            return userlist.size();
+//        } catch (NoResultException ex) {
+//            return 0;
+//        }
     }
 }

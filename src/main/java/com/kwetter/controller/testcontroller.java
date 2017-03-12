@@ -68,6 +68,17 @@ public class testcontroller {
                 role
         );
 
+        User niekFollowing = new User(
+                "NiekVolgen",
+                "DIKKE BMW",
+                "HILDA",
+                location,
+                "NEE IS NEE HE",
+                role
+        );
+
+
+
 
         Kweet kweetToAdd1 = new Kweet(
                 "Kweet 1",
@@ -87,6 +98,7 @@ public class testcontroller {
         userToAdd.addKweet(kweetToAdd1);
         userToAdd.addKweet(kweetToAdd2);
         userToAdd2.addKweet(kweetToAdd3);
+        userToAdd.addFollowing(niekFollowing);
 
         ks.createUser(userToAdd);
         ks.createUser(userToAdd2);

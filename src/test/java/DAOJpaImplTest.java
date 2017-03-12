@@ -35,8 +35,8 @@ public class DAOJpaImplTest {
 //        em = emf.createEntityManager();
 //        userDao = new UserDAO_Impl(em);
 //    }
-//
-//    @Test
+
+    //    @Test
 //    public void testCreateUser() {
 //        // create user
 //        Location location = new Location(1, 1, "Venlo");
@@ -105,6 +105,36 @@ public class DAOJpaImplTest {
 //        em2.getTransaction().begin();
 //        User deletedUser = em.find(User.class, user.getId());
 //        assertNull(deletedUser);
+//    }
+//
+//    @Test
+//    public void testAddFollowing() {
+//        // create LeaderUser
+//        Location location = new Location(1, 1, "Venlo");
+//        Role role = new Role("Moderater");
+//        User leader = new User("leader", "TEST", "Hello im test", location, "www.test.nl", role);
+//
+//        // create FollowingUser
+//        Location location2 = new Location(1, 1, "Venlo");
+//        Role role2 = new Role("Moderater");
+//        User following = new User("following", "TEST", "Hello im test", location, "www.test.nl", role);
+//
+//        // create FollowingUser
+//
+//        User following2 = new User("following2", "TEST", "Hello im test", location, "www.test.nl", role);
+//
+//        leader.addFollowing(following);
+//        leader.addFollowing(following2);
+//
+//        em.getTransaction().begin();
+//        userDao.createUser(leader);
+//        //   userDao.createUser(following);
+//        em.getTransaction().commit();
+//
+//        assertEquals(2, userDao.getAllFollowing(userDao.findUserByUserName("leader")).size());
+//        assertEquals(2, userDao.findUserByUserName("leader").getFollowing().size());
+//
+//
 //    }
 //
 //

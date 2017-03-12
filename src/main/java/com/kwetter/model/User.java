@@ -32,7 +32,7 @@ public class User implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Location location;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<User> following;
 
     @OneToMany(mappedBy = "poster",cascade = CascadeType.ALL)
@@ -114,9 +114,17 @@ public class User implements Serializable {
         return following;
     }
 
+    public void setFollowing(List<User> following) {
+        this.following = following;
+    }
     public List<Kweet> getKweets() {
         return kweets;
     }
+
+    public void setKweets(List<Kweet> kweets) {
+        this.kweets = kweets;
+    }
+
 
     /**
      *
@@ -125,8 +133,8 @@ public class User implements Serializable {
     public void addKweet(Kweet kweet) {
         if (kweet != null && kweets != null) {
             kweets.add(kweet);
-            if (kweet.getPoster() != this)
-                kweet.setPoster(this);
+//            if (kweet.getPoster() != this)
+//                kweet.setPoster(this);
         }
     }
 

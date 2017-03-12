@@ -154,11 +154,13 @@ public class KweetService {
     public void followUser(User leader, User following) {
         leader.addFollowing(following);
         userDAO.editUser(leader);
+        userDAO.editUser(following);
     }
 
     public void removeFollower(User leader, User following) {
         leader.removeFollowing(following);
         userDAO.editUser(leader);
+        userDAO.editUser(following);
     }
 
 }
