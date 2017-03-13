@@ -5,6 +5,7 @@ import com.kwetter.service.KweetService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.*;
+import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.util.Collection;
@@ -17,6 +18,7 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
  * Created by Niek on 7-3-2017.
  */
 
+@ApplicationScoped
 @Stateless
 @Path("/users")
 public class UserApi {

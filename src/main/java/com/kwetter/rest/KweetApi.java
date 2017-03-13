@@ -6,6 +6,7 @@ import com.kwetter.service.KweetService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 
@@ -17,6 +18,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
  * Created by Niek on 8-3-2017.
  */
 
+@ApplicationScoped
 @Stateless
 @Path("/kweets")
 public class KweetApi {
