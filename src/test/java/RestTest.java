@@ -21,36 +21,36 @@ import java.util.List;
 public class RestTest {
 
 
-//    @Before
-//    public void setUp()throws IOException {
-//        HttpPost post = new HttpPost("http://localhost:8080/JEAKwetter_war_exploded/api/users/remove");
-//        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-//        nameValuePairs.add(new BasicNameValuePair("userName", "HENKIE"));
-//        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-//        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(post);
-//    }
-//
-//    @Test
-//    public void testAddAndGetUser() throws IOException {
-//        // verify that the user does not exist yet
-//        HttpUriRequest request = new HttpGet("http://localhost:8080/JEAKwetter_war_exploded/api/users/HENKIE");
-//        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-//        assertEquals(204, httpResponse.getStatusLine().getStatusCode());
-//
-//        // add user with succes
-//        HttpPost post = new HttpPost("http://localhost:8080/JEAKwetter_war_exploded/api/users/create");
-//        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-//        nameValuePairs.add(new BasicNameValuePair("userName", "HENKIE"));
-//        nameValuePairs.add(new BasicNameValuePair("password", "test"));
-//        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-//        httpResponse = HttpClientBuilder.create().build().execute(post);
-//        assertEquals(200,httpResponse.getStatusLine().getStatusCode());
-//
-//        // verify user is indeed added
-//        request = new HttpGet("http://localhost:8080/JEAKwetter_war_exploded/api/users/HENKIE");
-//        httpResponse = HttpClientBuilder.create().build().execute(request);
-//        assertEquals(200,httpResponse.getStatusLine().getStatusCode());
-//    }
+    @Before
+    public void setUp()throws IOException {
+        HttpPost post = new HttpPost("http://localhost:8080/JEAKwetter_war_exploded/api/users/remove");
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair("userName", "HENKIE"));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(post);
+    }
+
+    @Test
+    public void testAddAndGetUser() throws IOException {
+        // verify that the user does not exist yet
+        HttpUriRequest request = new HttpGet("http://localhost:8080/JEAKwetter_war_exploded/api/users/HENKIE");
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+        assertEquals(204, httpResponse.getStatusLine().getStatusCode());
+
+        // add user with succes
+        HttpPost post = new HttpPost("http://localhost:8080/JEAKwetter_war_exploded/api/users/create");
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair("userName", "HENKIE"));
+        nameValuePairs.add(new BasicNameValuePair("password", "test"));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        httpResponse = HttpClientBuilder.create().build().execute(post);
+        assertEquals(200,httpResponse.getStatusLine().getStatusCode());
+
+        // verify user is indeed added
+        request = new HttpGet("http://localhost:8080/JEAKwetter_war_exploded/api/users/HENKIE");
+        httpResponse = HttpClientBuilder.create().build().execute(request);
+        assertEquals(200,httpResponse.getStatusLine().getStatusCode());
+    }
 
 
 

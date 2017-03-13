@@ -50,7 +50,6 @@ public class KweetService {
         userDAO = dao;
     }
 
-
     /**
      * Used for mockito testing only!
      *

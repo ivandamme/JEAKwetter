@@ -6,7 +6,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:button value="Click me"></h:button>
     <h:outputLabel value="Hello, world"/>
     <ui:repeat value="#{testcontroller.users}" var="usr">
         <li>#{usr.id} - #{usr.userName} - #{usr.location.city}
