@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
 <glassfish-web-app error-url="">
+
+
     <security-role-mapping>
-        <role-name>admin_role</role-name>
-        <principal-name>admin_role</principal-name>
-        <group-name>admin_role</group-name>
+        <role-name>admin</role-name>
+        <principal-name>admin</principal-name>
+        <group-name>admin</group-name>
     </security-role-mapping>
     <security-role-mapping>
-        <role-name>user_role</role-name>
-        <principal-name>user_role</principal-name>
-        <group-name>user_role</group-name>
+        <role-name>user</role-name>
+        <principal-name>user</principal-name>
+        <group-name>user</group-name>
     </security-role-mapping>
+
 
     <class-loader delegate="true"/>
     <jsp-config>
         <property name="keepgenerated" value="true">
         </property>
     </jsp-config>
+
+ <parameter-encoding default-charset="UTF-8"/>
 </glassfish-web-app>

@@ -25,14 +25,14 @@ public class UserTest {
 
         for (int i = 0; i < 10; i++) {
             users.add(new User(" Test User " + i, " Test Password " + i, "Test Bio " + i,
-                    testlocation, "Test website " + i, role));
+                    testlocation, "Test website " + i));
         }
 
         following = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             following.add(new User(" Test following " + i, " Test Password " + i, "Test Bio " + i,
-                    testlocation, "Test website " + i, role));
+                    testlocation, "Test website " + i));
         }
     }
 

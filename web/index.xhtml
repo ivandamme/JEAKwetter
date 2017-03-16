@@ -7,6 +7,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
     <h:outputLabel value="Hello, world"/>
+
+    Select where you want to go:
+    <br />
+    <h:link outcome="admin/admin.xhtml" value="To the admin section" /><br />
+    <h:link outcome="user/user.xhtml" value="To the user section" />
+
     <ui:repeat value="#{testcontroller.users}" var="usr">
         <li>#{usr.id} - #{usr.userName} - #{usr.location.city}
             #{usr.kweets.size()}

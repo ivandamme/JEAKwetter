@@ -22,7 +22,7 @@ public class DAOCollectionImplTest {
         kweetDAOCollectionImpl = new KweetDAOCollection_Impl();
         Location location = new Location(1,1,"Venlo");
         Role role = new Role("Moderater");
-        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl",role);
+        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl");
         userDAOCollectionImpl.createUser(user);
     }
 
@@ -31,7 +31,7 @@ public class DAOCollectionImplTest {
     public void testCreateUser() throws Exception {
         Location location = new Location(1,1,"Venlo");
         Role role = new Role("Moderater");
-        User user = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl",role);
+        User user = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl");
         userDAOCollectionImpl.createUser(user);
         assertEquals(user, userDAOCollectionImpl.findUserByUserName("Niek"));
     }
@@ -40,10 +40,10 @@ public class DAOCollectionImplTest {
     public void testGetAllUser() throws Exception {
         Location location = new Location(1,1,"Venlo");
         Role role = new Role("Moderater");
-        User user1 = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl",role);
+        User user1 = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl");
         userDAOCollectionImpl.createUser(user1);
         assertEquals(2, userDAOCollectionImpl.getAllUsers().size());
-        User user2 = new User("Piet","TEST","Hello im Piet",location,"www.piet.nl",role);
+        User user2 = new User("Piet","TEST","Hello im Piet",location,"www.piet.nl");
         userDAOCollectionImpl.createUser(user2);
         assertEquals(3, userDAOCollectionImpl.getAllUsers().size());
     }
@@ -52,7 +52,7 @@ public class DAOCollectionImplTest {
     public void testRemoveUser() throws Exception {
         Location location = new Location(1,1,"Venlo");
         Role role = new Role("Moderater");
-        User user1 = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl",role);
+        User user1 = new User("Niek","TEST","Hello im Niek",location,"www.niek.nl");
         userDAOCollectionImpl.createUser(user1);
         userDAOCollectionImpl.removeUser(user1);
         assertEquals(null, userDAOCollectionImpl.findUserByUserName("Niek"));

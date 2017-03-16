@@ -3,6 +3,7 @@ package com.kwetter.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,19 +16,24 @@ import java.util.List;
         @NamedQuery(name = "Account.findByUsername",
                 query = "SELECT u FROM User u where u.userName = :userName")
 })
+@Table(name="user")
 public class User implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true)
+    @Column(unique = true, name = "username")
     private String userName;
+    @Column(name = "password")
     private String password;
     private String bio;
     private String website;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Role role;
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "USERS_ROLES",
+            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
+            inverseJoinColumns = @JoinColumn(name = "rolename", referencedColumnName = "rolename"))
+    private Collection<Role> roles;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Location location;
@@ -47,7 +53,7 @@ public class User implements Serializable {
 
     }
 
-    public User(String userName, String password, String bio, Location location, String website,Role role) {
+    public User(String userName, String password, String bio, Location location, String website) {
         this.userName = userName;
         this.password = password;
         this.bio = bio;
@@ -55,7 +61,6 @@ public class User implements Serializable {
         this.website = website;
         this.following = new ArrayList<>();
         this.kweets = new ArrayList<>();
-        this.role = role;
     }
 
     public long getId() {
@@ -100,14 +105,6 @@ public class User implements Serializable {
 
     public void setWebsite(String website) {
         this.website = website;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public List<User> getFollowing() {
@@ -166,6 +163,16 @@ public class User implements Serializable {
     }
 
 
+    public Collection<Role> getRoles() {
+        return roles;
+    }
 
+    public void setRoles(Collection<Role> groups) {
+        this.roles = groups;
+    }
+
+    public void clearRoles() {
+        roles.clear();
+    }
 
 }

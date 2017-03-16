@@ -6,10 +6,21 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>Admin Page</title>
+    <title>Profile Page</title>
 </h:head>
 <h:body>
-    <h1>Welcome to the Admin Page.</h1>
-    <h:link outcome="/index.xhtml" value="Back to Homepage" />
+    userName : #{profilecontroller.userName}
+    <br/>
+    <br/>
+    profielfoto : #{profilecontroller.profielFoto}
+    <br/>
+    <br/>
+    bio : #{profilecontroller.bio}
+    <br/>
+    <br/>
+    kweets size : #{profilecontroller.kweets.size()}
+    <br/>
+    <br/>
+    following size : #{profilecontroller.following.size()}
 </h:body>
 </html>

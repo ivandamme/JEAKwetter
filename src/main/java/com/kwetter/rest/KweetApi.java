@@ -29,7 +29,7 @@ public class KweetApi {
 
 
     @GET
-    @RolesAllowed("admin_role")
+    @RolesAllowed("admin")
     @Path("all")
     @Produces(APPLICATION_JSON)
     public List<Kweet> getAllKweets() {
@@ -62,7 +62,7 @@ public class KweetApi {
     }
 
     @POST
-    @RolesAllowed("admin_role")
+    @RolesAllowed("admin")
     @Path("/delete")
     @Produces(APPLICATION_JSON)
     public Kweet deleteKweet(@FormParam("id") long id) {

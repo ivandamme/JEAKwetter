@@ -27,7 +27,7 @@ public class UserApi {
     KweetService kweetService;
 
     @GET
-    @RolesAllowed("admin_role")
+    @RolesAllowed("admin")
     @Produces(APPLICATION_JSON)
     @Path("all")
     public Collection<User> findAllUsers() {

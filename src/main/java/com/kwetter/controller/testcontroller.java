@@ -13,6 +13,8 @@ import javax.annotation.ManagedBean;
 import javax.enterprise.context.*;
 import javax.inject.*;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -48,36 +50,42 @@ public class testcontroller {
     public void makeSomeUsers()
     {
         Location location = new Location(1, 1, "Venlo");
-        Role role = new Role("Moderater");
+        Role roleAdmin = new Role("admin");
+        Role roleUser = new Role("user");
+
+        Collection<Role> roles = new ArrayList<Role>();
+        roles.add(roleAdmin);
+
+        Collection<Role> roles2 = new ArrayList<Role>();
+        roles2.add(roleUser);
+
 
         User userToAdd = new User(
                 "Niek",
-                "gekkePassword",
+                "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
                 "This is my Bio",
                 location,
-                "https://pyld.io",
-                role
+                "https://pyld.io"
         );
 
+        userToAdd.setRoles(roles);
         User userToAdd2 = new User(
-                "NiekVolger",
-                "MaatwerkBoys",
+                "Henk",
+                "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
                 "All aboard the maatwerk train",
                 location,
-                "https://pyld.io",
-                role
+                "https://pyld.io"
         );
 
         User niekFollowing = new User(
-                "NiekVolgen",
-                "DIKKE BMW",
+                "Pieter",
+                "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
                 "HILDA",
                 location,
-                "NEE IS NEE HE",
-                role
+                "NEE IS NEE HE"
         );
 
-
+        userToAdd2.setRoles(roles2);
 
 
         Kweet kweetToAdd1 = new Kweet(
