@@ -65,7 +65,7 @@ public class kweetServiceTest {
     public void placeKweet() throws Exception {
         Location location = new Location(1,1,"Venlo");
         Role role = new Role("Moderater");
-        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl");
+        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl","https://hekwerk.nl/media/images/artists/thumbnails/pieterderks-pas-640x_.jpg");
         Kweet kweet1 = new Kweet("test",user);
         ks.placeKweet(kweet1);
         Mockito.verify(kwetterDAO, Mockito.times(1)).create(kweet1);
@@ -75,7 +75,7 @@ public class kweetServiceTest {
     public void removeKweet() throws Exception {
         Location location = new Location(1,1,"Venlo");
         Role role = new Role("Moderater");
-        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl");
+        User user = new User("Test user","TEST","Hello im test",location,"www.test.nl","https://hekwerk.nl/media/images/artists/thumbnails/pieterderks-pas-640x_.jpg");
         Kweet kweet1 = new Kweet("test",user);
         ks.editKweet(kweet1);
         ks.removeKweet(kweet1);

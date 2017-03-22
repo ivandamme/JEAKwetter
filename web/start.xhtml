@@ -1,0 +1,31 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="title">
+        Starting Page
+    </ui:define>
+    <ui:define name="content">
+        <div class="container blockedc">
+            <div class="col-md-12">
+                <ui:include src="fragments/searchBar.xhtml">
+                    <ui:param name="componentTitle" value="Search User" />
+                </ui:include>
+            </div>
+            <div class="col-md-6">
+                <ui:include src="fragments/kweetSendForm.xhtml">
+                    <ui:param name="componentTitle" value="Send Kweet" />
+                </ui:include>
+                <ui:include src="fragments/kweetList.xhtml">
+                    <ui:param name="kweetList" value="#{profileController.timeline}" />
+                    <ui:param name="componentTitle" value="Timeline" />
+                </ui:include>
+            </div>
+            <div class="col-md-6">
+                <ui:include src="fragments/lastKweet.xhtml">
+                    <ui:param name="componentTitle" value="Last Kweet" />
+                </ui:include>
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>

@@ -8,6 +8,9 @@ import com.kwetter.model.User;
 import javax.ejb.*;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -121,7 +124,10 @@ public class KweetService {
 
     //Get all Kweets
     public List<Kweet> getKweets() {
-        return kweetDAO.findAll();
+        List<Kweet> kweets = kweetDAO.findAll();
+        Collections.sort(kweets);
+        Collections.reverse(kweets);
+        return kweets;
     }
 
     //Find Kweet by ID
@@ -162,4 +168,20 @@ public class KweetService {
         userDAO.editUser(following);
     }
 
+
+    public List<Kweet> getOwnAndFollowing(User user) {
+        List<Kweet> kweets = new ArrayList<>();
+
+        for (User u : userDAO.findUserByUserName(user.getUserName()).getFollowing()) {
+            kweets.addAll(u.getKweets());
+        }
+        kweets.addAll(userDAO.findUserByUserName(user.getUserName()).getKweets());
+        int count = kweets.size();
+        if (count > 50)
+            count = 50;
+        Collections.sort(kweets);
+        Collections.reverse(kweets);
+        return kweets.subList(0, count);
+
+    }
 }

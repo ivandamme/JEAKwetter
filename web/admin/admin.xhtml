@@ -9,7 +9,11 @@
     <title>Admin Page</title>
 </h:head>
 <h:body>
+    <h:form>
     <h1>Welcome to the Admin Page.</h1>
     <h:link outcome="/index.xhtml" value="Back to Homepage" />
+    <br /> <br />
+    <h:commandLink action="#{LoginBean.signOut()}" value="Logout" title="Logout" />
+    </h:form>
 </h:body>
 </html>

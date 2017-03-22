@@ -28,17 +28,20 @@ public class User implements Serializable {
     private String password;
     private String bio;
     private String website;
+    private String pictureUrl;
+
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "USERS_ROLES",
             joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
-            inverseJoinColumns = @JoinColumn(name = "rolename", referencedColumnName = "rolename"))
+            inverseJoinColumns = @JoinColumn(name = "rolename", referencedColumnName = "rolename"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "rolename"})})
     private Collection<Role> roles;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Location location;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     private List<User> following;
 
     @OneToMany(mappedBy = "poster",cascade = CascadeType.ALL)
@@ -53,12 +56,13 @@ public class User implements Serializable {
 
     }
 
-    public User(String userName, String password, String bio, Location location, String website) {
+    public User(String userName, String password, String bio, Location location, String website, String pictureUrl) {
         this.userName = userName;
         this.password = password;
         this.bio = bio;
         this.location = location;
         this.website = website;
+        this.pictureUrl = pictureUrl;
         this.following = new ArrayList<>();
         this.kweets = new ArrayList<>();
     }
@@ -122,7 +126,6 @@ public class User implements Serializable {
         this.kweets = kweets;
     }
 
-
     /**
      *
      * @param kweet
@@ -162,7 +165,6 @@ public class User implements Serializable {
         this.following.remove(follow);
     }
 
-
     public Collection<Role> getRoles() {
         return roles;
     }
@@ -173,6 +175,22 @@ public class User implements Serializable {
 
     public void clearRoles() {
         roles.clear();
+    }
+
+    public void addRole(Role role) {
+        if (role != null && this.roles != null && !this.roles.contains(role)) {
+            this.roles.add(role);
+            if (!role.getUsers().contains(this))
+                role.addUsers(this);
+        }
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 
 }

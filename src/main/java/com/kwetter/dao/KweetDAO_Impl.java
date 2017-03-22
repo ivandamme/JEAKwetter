@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class KweetDAO_Impl implements KweetDAO {
     public void setEm(EntityManager em) {
         this.em = em;
     }
+
     @Override
     public void create(Kweet k) {
         em.persist(k);
@@ -47,10 +49,9 @@ public class KweetDAO_Impl implements KweetDAO {
     public Kweet get(long id) {
         Query q = em.createNamedQuery("Kweet.getById");
         q.setParameter("id", id);
-        try{
+        try {
             return (Kweet) q.getSingleResult();
-        }
-        catch (NoResultException ex) {
+        } catch (NoResultException ex) {
             return null;
         }
     }

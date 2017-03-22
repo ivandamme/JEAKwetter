@@ -1,5 +1,8 @@
 package com.kwetter.rest;
 
+import com.kwetter.model.Kweet;
+import com.kwetter.model.Location;
+import com.kwetter.model.Role;
 import com.kwetter.model.User;
 import com.kwetter.service.KweetService;
 
@@ -8,6 +11,7 @@ import javax.ejb.*;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -106,6 +110,76 @@ public class UserApi {
         return kweetService.getFollowing(userLeader);
     }
 
+    @GET
+    @Path("insert")
+    public void initUsers() {
+        Location location = new Location(1, 1, "Venlo");
+        Role roleAdmin = new Role("admin");
+        Role roleUser = new Role("user");
+
+        Collection<Role> roles = new ArrayList<Role>();
+        roles.add(roleAdmin);
+
+        Collection<Role> roles2 = new ArrayList<Role>();
+        roles2.add(roleUser);
+
+        User userToAdd = new User(
+                "Niek",
+                "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+                "Head of the Maatwerk division (MWD) . Responsible for signing Maatwerk contracts and making Le Epic Maatwerk Memes. ",
+                location,
+                "https://pyld.io",
+                "https://pbs.twimg.com/profile_images/822132298556571648/pmTDnMBX_400x400.jpg"
+        );
+
+
+        User userToAdd2 = new User(
+                "Henk",
+                "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+                "All aboard the maatwerk train",
+                location,
+                "https://pyld.io",
+                "https://alphenaandenrijn.pvda.nl/wp-content/blogs.dir/370/pvda_files/cache/th_84d3103e6b09f4801b9f6d2d299003c2_1378324901HenkGoes.jpg"
+        );
+
+        User niekFollowing = new User(
+                "Pieter",
+                "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+                "HILDA",
+                location,
+                "NEE IS NEE HE",
+                "https://hekwerk.nl/media/images/artists/thumbnails/pieterderks-pas-640x_.jpg"
+        );
+        userToAdd.setRoles(roles);
+        userToAdd2.setRoles(roles2);
+        niekFollowing.setRoles(roles2);
+
+
+        Kweet kweetToAdd1 = new Kweet(
+                "Wat een kansloze les is dit weer zeg #Fontys",
+                userToAdd
+        );
+
+        Kweet kweetToAdd2 = new Kweet(
+                "2 Memes a day keeps the Maatwerk away #HijdoetHetNiet",
+                userToAdd
+        );
+
+        Kweet kweetToAdd3 = new Kweet(
+                "My neck My neck My pussy and My #crack",
+                userToAdd2
+        );
+
+        userToAdd.addKweet(kweetToAdd1);
+        userToAdd.addKweet(kweetToAdd2);
+        userToAdd2.addKweet(kweetToAdd3);
+
+        kweetService.createUser(niekFollowing);
+        userToAdd.addFollowing(niekFollowing);
+
+        kweetService.createUser(userToAdd);
+        //  kweetService.createUser(userToAdd2);
+    }
 
 
 }

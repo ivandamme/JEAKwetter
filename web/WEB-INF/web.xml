@@ -20,7 +20,7 @@
 
 
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>start.xhtml</welcome-file>
     </welcome-file-list>
 
 
@@ -53,6 +53,30 @@
             <role-name>user</role-name>
         </auth-constraint>
     </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Moderator Pages</web-resource-name>
+            <url-pattern>/profile.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Moderator Pages</web-resource-name>
+            <url-pattern>/start.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+
 
     <login-config>
         <auth-method>FORM</auth-method>

@@ -66,24 +66,6 @@ public class LoginBean {
         return FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal() != null;
     }
 
-    public String login() {
-        System.out.println("login()");
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        session = request.getSession();
-        try {
-            request.login(this.userName, this.password);
-            user = kwetterService.findByUserName(userName);
-            session.setAttribute("username", user.getId());
-        } catch (ServletException e) {
-            e.printStackTrace();
-            context.addMessage(null, new FacesMessage("Login failed."));
-            return "error";
-        }
-        Logger.getGlobal().log(Level.SEVERE, "USER: " + user.getUserName() + getPassword());
-        return "/index.xhtml";
-    }
-
 
     public void CheckValidUser() throws IOException {
         User user = kwetterService.findByUserName(userName);
@@ -112,16 +94,11 @@ public class LoginBean {
 
     }
 
-    public String getAllUsers() {
+    public List<User> getAllUsers() {
         List<User> userlist;
         userlist = kwetterService.getUsers();
+        return userlist;
 
-        for (User user : userlist
-                ) {
-            allUsers += user.getUserName() + " : " + user.getPassword() + "\n";
-
-        }
-        return allUsers;
     }
 
     public void signOut() {
