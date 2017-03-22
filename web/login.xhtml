@@ -1,45 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">
+        Login Page
+    </ui:define>
+    <ui:define name="content">
 
-<f:view>
-    <h1>Login to access your account</h1>
+        <div class="container blockedc">
+            <div class="col-md-offset-4">
+                <h:form id="formLogin" prependId="false"
+                        onsubmit="document.getElementById('formLogin').action = 'j_security_check';">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h:outputLabel for="j_username" value="Username: " />
+                        </div>
+                        <div class="col-md-6">
+                            <h:inputText class="form-control" id="j_username" required="true" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h:outputLabel for="j_password" value="Password: "/>
+                        </div>
+                        <div class="col-md-6">
+                            <h:inputSecret  class="form-control" id="j_password" required="true" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h:commandButton value="Login" title="Login" type="submit" class="btn btn-primary btn-block"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
 
-    <h:form id="formLogin" prependId="false"
-            onsubmit="document.getElementById('formLogin').action = 'j_security_check';">
-        <h:panelGrid columns="2">
+    </ui:define>
 
-            <f:facet name="header">
-                Login
-            </f:facet>
-
-            <h:outputLabel for="j_username" value="Username: "/>
-            <h:inputText id="j_username" required="true" />
-
-            <h:outputLabel for="j_password" value="Password: "/>
-            <h:inputSecret id="j_password" required="true" />
-
-            <f:facet name="footer">
-                <h:commandButton value="Login" type="submit"/>
-            </f:facet>
-        </h:panelGrid>
-    </h:form>
-    <h4>see below || username : password</h4>
-    <h:outputLabel value="#{LoginBean.result}"/>
-
-    <h3>Users</h3>
-
-    <ui:repeat value="#{LoginBean.allUsers}" var="usr">
-
-        <li>#{usr.id} - #{usr.userName} - #{usr.location.city}
-            #{usr.kweets.size()}
-        </li>
-    </ui:repeat>
-
-
-
-</f:view>
-</html>
+</ui:composition>
