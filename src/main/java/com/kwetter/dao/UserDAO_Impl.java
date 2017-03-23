@@ -78,6 +78,12 @@ public class UserDAO_Impl implements UserDAO {
     }
 
     @Override
+    public List<User> getAllFollowers(User user) {
+        User findUser = findUserByUserName(user.getUserName());
+        return findUser.getFollowers();
+    }
+
+    @Override
     public List<User> findUserByUserNameContains(String partOfUsername) {
         Query q = em.createNamedQuery("Account.getByUserNameContains");
         q.setParameter("partOfUsername", "%" + partOfUsername + "%");

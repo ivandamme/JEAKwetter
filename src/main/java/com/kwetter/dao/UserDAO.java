@@ -59,7 +59,7 @@ public interface UserDAO {
      */
     int getAmountOfFollowing(User user);
 
-
+    List<User> getAllFollowers(User user);
 
     List<User> findUserByUserNameContains(String partOfUsername);
 

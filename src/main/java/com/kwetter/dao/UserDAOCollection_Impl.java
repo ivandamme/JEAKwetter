@@ -61,4 +61,14 @@ public class UserDAOCollection_Impl implements UserDAO  {
     public int getAmountOfFollowing(User user) {
         return user.getFollowing().size();
     }
+
+    @Override
+    public List<User> getAllFollowers(User user) {
+        return null;
+    }
+
+    @Override
+    public List<User> findUserByUserNameContains(String partOfUsername) {
+        return null;
+    }
 }

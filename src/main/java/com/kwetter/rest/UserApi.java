@@ -176,6 +176,7 @@ public class UserApi {
 
         kweetService.createUser(niekFollowing);
         userToAdd.addFollowing(niekFollowing);
+        userToAdd.addFollowers(niekFollowing);
 
         kweetService.createUser(userToAdd);
         //  kweetService.createUser(userToAdd2);

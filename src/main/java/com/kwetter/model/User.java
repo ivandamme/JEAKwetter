@@ -46,6 +46,14 @@ public class User implements Serializable {
     @ManyToMany
     private List<User> following;
 
+
+    @ManyToMany
+    @JoinTable(name = "user_followers"
+            , joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+            , inverseJoinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id", nullable = false))
+    private List<User> followers;
+
+
     @OneToMany(mappedBy = "poster",cascade = CascadeType.ALL)
     private List<Kweet> kweets;
 
@@ -67,6 +75,7 @@ public class User implements Serializable {
         this.pictureUrl = pictureUrl;
         this.following = new ArrayList<>();
         this.kweets = new ArrayList<>();
+        this.followers = new ArrayList<>();
     }
 
     public long getId() {
@@ -194,5 +203,27 @@ public class User implements Serializable {
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
+
+    public List<User> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
+    }
+
+    /**
+     *
+     * @param follow
+     */
+    public void addFollowers(User follower) {
+        if (follower != null && followers != null)
+            this.followers.add(follower);
+    }
+
+    public void removeFollowwer(User follower) {
+        this.followers.remove(follower);
+    }
+
 
 }

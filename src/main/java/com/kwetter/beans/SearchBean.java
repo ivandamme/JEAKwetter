@@ -22,8 +22,18 @@ public class SearchBean {
     private List<Kweet> kweets;
     private List<User> users;
 
+    private String text;
+
     public SearchBean() {
         // Empty constructor for dependency injection purposes.
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public List<Kweet> getKweets() {
@@ -42,6 +52,8 @@ public class SearchBean {
         this.users = users;
     }
 
-
+    public void setKweetsByText() {
+        kweets = kwetterService.getKweetByText(text);
+    }
 
 }
