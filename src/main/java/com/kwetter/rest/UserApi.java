@@ -117,11 +117,11 @@ public class UserApi {
         Role roleAdmin = new Role("admin");
         Role roleUser = new Role("user");
 
-        Collection<Role> roles = new ArrayList<Role>();
-        roles.add(roleAdmin);
+        Collection<Role> rolesAdmin = new ArrayList<Role>();
+        rolesAdmin.add(roleAdmin);
 
-        Collection<Role> roles2 = new ArrayList<Role>();
-        roles2.add(roleUser);
+        Collection<Role> rolesUser = new ArrayList<Role>();
+        rolesUser.add(roleUser);
 
         User userToAdd = new User(
                 "Niek",
@@ -150,9 +150,9 @@ public class UserApi {
                 "NEE IS NEE HE",
                 "https://hekwerk.nl/media/images/artists/thumbnails/pieterderks-pas-640x_.jpg"
         );
-        userToAdd.setRoles(roles);
-        userToAdd2.setRoles(roles2);
-        niekFollowing.setRoles(roles2);
+        userToAdd.setRoles(rolesAdmin);
+        userToAdd2.setRoles(rolesUser);
+        niekFollowing.setRoles(rolesUser);
 
 
         Kweet kweetToAdd1 = new Kweet(
@@ -184,7 +184,7 @@ public class UserApi {
 
 
 
-        //  kweetService.createUser(userToAdd2);
+          kweetService.createUser(userToAdd2);
     }
 
 

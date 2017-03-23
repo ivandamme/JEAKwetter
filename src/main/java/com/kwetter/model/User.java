@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -50,9 +51,7 @@ public class User implements Serializable {
 
 
     @ManyToMany
-    @JoinTable(name = "user_followers"
-            , joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-            , inverseJoinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id", nullable = false))
+    @JoinTable(name = "user_followers")
     private List<User> followers;
 
 
@@ -133,6 +132,8 @@ public class User implements Serializable {
     }
 
     public List<Kweet> getKweets() {
+        Collections.sort(kweets);
+        Collections.reverse(kweets);
         return kweets;
     }
 
@@ -188,15 +189,9 @@ public class User implements Serializable {
         this.pictureUrl = pictureUrl;
     }
 
-
     public List<User> getFollowers() {
         return followers;
     }
-
-    public void setFollowers(List<User> followers) {
-        this.followers = followers;
-    }
-
 
     /**
      * @param follow

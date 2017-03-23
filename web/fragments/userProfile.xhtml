@@ -1,18 +1,41 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-             xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <div class="panel panel-default">
-        <div class="panel-heading">Profile: </div>
+        <div class="panel-heading">Profile:</div>
         <div class="panel-body">
-        <div class="row content">
-            <div class="col-md-6">
-                <img src="#{currentUser.pictureUrl}" class="img-rounded" alt="Cinque Terre" width="200" height="200"/>
+            <div class="row content">
+                <div class="col-md-6">
+                    <img src="#{currentUser.pictureUrl}" class="img-rounded" alt="Cinque Terre" width="200"
+                         height="200"/>
+                    <br/>
+                    <h:panelGroup rendered="#{!profileBean.isOwnProfile()}">
+                        <h:panelGroup rendered="#{!profileBean.alreadyFollow()}">
+                            <h:form p:action="profile.xhtml?u=#{profileBean.user.userName}">
+                                <h:commandButton value="Follow" action="#{profileBean.followUser()}"
+                                                 style="width: 200px" class="btn btn-info"/>
+                            </h:form>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{profileBean.alreadyFollow()}">
+                            <h:form p:action="profile.xhtml?u=#{profileBean.user.userName}">
+                                <h:commandButton value="Unfollow" style="width: 200px"
+                                                 action="#{profileBean.unFollowUser()}" class="btn btn-info"/>
+                            </h:form>
+                        </h:panelGroup>
+
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{profileBean.isOwnProfile()}">
+                        <h:commandButton value="Cant Follow yourself!" disabled="true" style="width: 200px"
+                                         class="btn btn-info"/>
+                    </h:panelGroup>
+
+                </div>
+                <div class="col-md-6">
+                    <h2><strong>#{currentUser.userName}</strong></h2>
+                    <p>#{currentUser.location.city}</p>
+                    <p>#{currentUser.bio}</p>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h2><strong>#{currentUser.userName}</strong></h2>
-                <p>#{currentUser.location.city}</p>
-                <p>#{currentUser.bio}</p>
-            </div>
-        </div>
         </div>
     </div>
 </ui:fragment>

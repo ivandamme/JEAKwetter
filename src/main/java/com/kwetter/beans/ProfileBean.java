@@ -3,8 +3,10 @@ package com.kwetter.beans;
 import com.kwetter.model.*;
 import com.kwetter.service.KweetService;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -19,13 +21,15 @@ import java.util.logging.Logger;
  * Created by Niek on 16-3-2017.
  */
 
+@RequestScoped
 @ManagedBean(name = "profileBean", eager = true)
 public class ProfileBean {
 
     ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
-    @Inject
+    @EJB
     KweetService kwetterService;
+    private String username;
     private User user;
     private String newKweetContent;
 
@@ -33,23 +37,50 @@ public class ProfileBean {
         // Empty constructor for dependency injection purposes.
     }
 
-
-    @Inject
-    public void setKweetService(KweetService ks) {
-        kwetterService = ks;
+    @PostConstruct
+    public void postContructor() {
+        try {
+            user = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+        }
+        catch (Exception x) {
+           //TODO
+        }
     }
 
+    public boolean isValid() {
+        Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
+        String username = parameterMap.get("u");
+        boolean isValid = this.kwetterService.findByUserName(username) != null;
+        if (isValid) {
+            this.username = username;
+        }
+        return isValid;
+    }
+
+    public boolean isOwnProfile() {
+        Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
+        String username = parameterMap.get("u");
+        User test = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+       return username.equals(test.getUserName());
+    }
+
+    public boolean alreadyFollow(){
+        Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
+        String username = parameterMap.get("u");
+        User test = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+        for (User u: test.getFollowing()) {
+            if(u.getUserName().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public User getUser() {
         Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
         String username = parameterMap.get("u");
-        user = this.kwetterService.findByUserName(username);
+        user = kwetterService.findByUserName(username);
         return user;
-
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getNewKweetContent() {
@@ -75,30 +106,35 @@ public class ProfileBean {
     public List<Kweet> getTimeline() {
         Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
         String username = parameterMap.get("u");
-        user = this.kwetterService.findByUserName(username);
-        List<Kweet> kweets = kwetterService.getOwnAndFollowing(user);
-        return kweets;
-    }
-
-    public List<Kweet> getAllKweetsUser() {
-        Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
-        String username = parameterMap.get("u");
-        user = this.kwetterService.findByUserName(username);
-        List<Kweet> kweets = kwetterService.findByUserName(user.getUserName()).getKweets();
-        Collections.sort(kweets);
-        Collections.reverse(kweets);
+        List<Kweet> kweets = kwetterService.getOwnAndFollowing(kwetterService.findByUserName(username));
         return kweets;
     }
 
     public void placeKweet() {
-        Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
-        String username = parameterMap.get("u");
-        user = this.kwetterService.findByUserName(username);
         Kweet kweet = new Kweet(newKweetContent, user);
         kwetterService.placeKweet(kweet);
         setNewKweetContent(null);
     }
 
+    public void followUser()
+    {
+        Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
+        String username = parameterMap.get("u");
+        User test = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+        test.addFollowing(kwetterService.findByUserName(username));
+        kwetterService.editUser(test);
+        kwetterService.editUser(kwetterService.findByUserName(username));
+    }
+
+    public void unFollowUser()
+    {
+        Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
+        String username = parameterMap.get("u");
+        User test = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+        test.removeFollowing(kwetterService.findByUserName(username));
+        kwetterService.editUser(test);
+        kwetterService.editUser(kwetterService.findByUserName(username));
+    }
 
 
 }

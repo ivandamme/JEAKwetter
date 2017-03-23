@@ -41,16 +41,15 @@ public class LoggedUserBean implements Serializable {
     public boolean getLoggedIn() {
         return FacesContext.getCurrentInstance().getExternalContext().getRemoteUser() != null;
     }
-    public void signOut() {
+    public String signOut() {
         try {
             request.logout();
-            session.invalidate();
-            System.out.println("Signout invoked");
-            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation
-                    (FacesContext.getCurrentInstance(), null, "/index.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            return "/index?faces-redirect=true";
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Error Signout -" + ex.getMessage());
+            return null;
         }
     }
 }
