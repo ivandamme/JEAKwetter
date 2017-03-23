@@ -168,7 +168,6 @@ public class KweetService {
         userDAO.editUser(following);
     }
 
-
     public List<Kweet> getOwnAndFollowing(User user) {
         List<Kweet> kweets = new ArrayList<>();
 
@@ -183,5 +182,9 @@ public class KweetService {
         Collections.reverse(kweets);
         return kweets.subList(0, count);
 
+    }
+
+    public List<Kweet> getKweetByText(String text){
+       return kweetDAO.findByText(text);
     }
 }

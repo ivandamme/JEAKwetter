@@ -68,15 +68,6 @@ public class UserDAO_Impl implements UserDAO {
     public List<User> getAllFollowing(User user) {
         User findUser = findUserByUserName(user.getUserName());
         return findUser.getFollowing();
-
-//        Query q = em.createQuery("SELECT u FROM User u where u.id in (select f.id from u.following f where u.id =:id)");
-//        q.setParameter("id", user.getId());
-//        List<User> userlist = q.getResultList();
-//        try {
-//            return userlist;
-//        } catch (NoResultException ex) {
-//            return null;
-//        }
     }
 
     @Override
@@ -84,13 +75,16 @@ public class UserDAO_Impl implements UserDAO {
         User findUser = findUserByUserName(user.getUserName());
         return findUser.getFollowing().size();
 
-//        Query q = em.createQuery("SELECT u from User u inner join u.following f where u.id=:id");
-//        q.setParameter("id", user.getId());
-//        List<User> userlist = q.getResultList();
-//        try {
-//            return userlist.size();
-//        } catch (NoResultException ex) {
-//            return 0;
-//        }
+    }
+
+    @Override
+    public List<User> findUserByUserNameContains(String partOfUsername) {
+        Query q = em.createNamedQuery("Account.getByUserNameContains");
+        q.setParameter("partOfUsername", "%" + partOfUsername + "%");
+        try {
+            return  q.getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

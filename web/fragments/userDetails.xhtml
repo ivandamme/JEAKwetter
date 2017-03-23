@@ -1,0 +1,34 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <div class="panel panel-default">
+        <div class="panel-heading">Details: </div>
+        <div class="panel-body">
+            <div class="row content">
+                <div class="col-md-2">
+                    Name:
+                </div>
+                <div class="col-md-10">
+                    #{currentUser.userName}
+                </div>
+                <div class="col-md-2">
+                    Location:
+                </div>
+                <div class="col-md-10">
+                    #{currentUser.location.city}
+                </div>
+                <div class="col-md-2">
+                    Website:
+                </div>
+                <div class="col-md-10">
+                    <a href="#{currentUser.website}"> #{currentUser.website} </a>
+                </div>
+                <div class="col-md-2">
+                    Bio:
+                </div>
+                <div class="col-md-10">
+                    #{currentUser.bio}
+                </div>
+            </div>
+        </div>
+    </div>
+</ui:fragment>

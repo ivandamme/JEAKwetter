@@ -26,8 +26,12 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Users <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Kweets</a></li>
+                    <li class="radio">
+                        <label class="radio-inline">
+                            <input type="radio" name="gr" value="0" onchange="val(this)"/>Users</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="gr" value="1" onchange="val(this)"/>Kweets</label>
+                    </li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
@@ -37,9 +41,33 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="login.xhtml"><h:outputLabel value="Login" rendered="#{profileController.user == null}"/></a></li>
-                    <li><a href="#"><h:outputLabel value="#{profileController.user.userName}"
-                                                   rendered="#{profileController.user != null}"/></a></li>
+                    <li>
+                        <h:panelGroup rendered="#{loggedUserBean.loggedIn}">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">#{loggedUserBean.user.userName}<span
+                                        class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <h:link outcome="/profile.xhtml?u=#{loggedUserBean.user.userName}"
+                                                value="My profile"/>
+                                    </li>
+                                    <li>
+                                        <h:link outcome="/start.xhtml?u=#{loggedUserBean.user.userName}"
+                                                value="My start page"/>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <h:form> <h:commandLink
+                                                action="#{loggedUserBean.signOut}">Log out</h:commandLink></h:form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{!loggedUserBean.loggedIn}">
+                            <h:link outcome="login.xhtml" value="Log in"/>
+                        </h:panelGroup>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -51,4 +79,9 @@
         </ui:insert>
     </div>
 </h:body>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<h:outputScript name="js/bootstrap.js"></h:outputScript>
 </html>

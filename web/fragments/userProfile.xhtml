@@ -1,0 +1,19 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <div class="panel panel-default">
+        <div class="panel-heading">Profile: </div>
+        <div class="panel-body">
+        <div class="row content">
+            <div class="col-md-6">
+                <img src="#{currentUser.pictureUrl}" class="img-rounded" alt="Cinque Terre" width="200" height="200"/>
+            </div>
+            <div class="col-md-6">
+                <h2><strong>#{currentUser.userName}</strong></h2>
+                <p>#{currentUser.location.city}</p>
+                <p>#{currentUser.bio}</p>
+            </div>
+        </div>
+        </div>
+    </div>
+</ui:fragment>
+

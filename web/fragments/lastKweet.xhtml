@@ -1,0 +1,19 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <div class="panel panel-default">
+        <div class="panel-heading">Last Kweet</div>
+        <div class="panel-body">
+        <c:if test="#{profileBean.user.kweets.size() > 0}">
+            <ui:include src="singleKweet.xhtml">
+                <ui:param name="singleKweet" value="#{profileBean.lastKweet}" />
+            </ui:include>
+        </c:if>
+        <c:if test="#{profileBean.user.kweets.size() == 0}">
+            <ui:include src="emptyBlockMessage.xhtml">
+                <ui:param name="message" value="You have not places any tweets, please fo so!" />
+            </ui:include>
+        </c:if>
+        </div>
+    </div>
+</ui:fragment>

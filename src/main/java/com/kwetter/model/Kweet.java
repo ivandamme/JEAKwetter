@@ -14,7 +14,9 @@ import javax.persistence.*;
         @NamedQuery(name = "Kweet.findAll",
                 query = "SELECT k FROM Kweet k"),
         @NamedQuery(name = "Kweet.getById",
-                query = "SELECT k FROM Kweet k where k.id = :id")
+                query = "SELECT k FROM Kweet k where k.id = :id"),
+        @NamedQuery(name = "Kweet.getByText",
+                query = "SELECT k FROM Kweet k where k.text like :text")
 })
 public class Kweet implements Serializable, Comparable<Kweet> {
     @Id

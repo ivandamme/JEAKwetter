@@ -14,7 +14,9 @@ import java.util.List;
         @NamedQuery(name = "Account.findAll",
                 query = "SELECT u FROM User u"),
         @NamedQuery(name = "Account.findByUsername",
-                query = "SELECT u FROM User u where u.userName = :userName")
+                query = "SELECT u FROM User u where u.userName = :userName"),
+        @NamedQuery(name = "Account.getByUserNameContains",
+                query = "SELECT u FROM User u where u.userName like :partOfUsername")
 })
 @Table(name="user")
 public class User implements Serializable {

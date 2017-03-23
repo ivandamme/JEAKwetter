@@ -47,5 +47,10 @@ public class KweetDAOCollection_Impl implements KweetDAO  {
         return null;
     }
 
+    @Override
+    public List<Kweet> findByText(String text) {
+        return null;
+    }
+
 
 }

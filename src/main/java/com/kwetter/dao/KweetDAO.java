@@ -44,4 +44,6 @@ public interface KweetDAO {
     Kweet get(long id);
 
 
+    List<Kweet> findByText(String text) ;
+
 }

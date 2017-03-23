@@ -16,7 +16,7 @@
                     <ui:param name="componentTitle" value="Send Kweet" />
                 </ui:include>
                 <ui:include src="fragments/kweetList.xhtml">
-                    <ui:param name="kweetList" value="#{profileController.timeline}" />
+                    <ui:param name="kweetList" value="#{profileBean.timeline}" />
                     <ui:param name="componentTitle" value="Timeline" />
                 </ui:include>
             </div>

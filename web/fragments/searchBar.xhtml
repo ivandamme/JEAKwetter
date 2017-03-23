@@ -1,0 +1,22 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <div class="panel panel-default">
+        <div class="panel-heading">Search User: </div>
+        <div class="panel-body">
+        <div class="row content">
+            <div class="col-md-12">
+                <div class="col-md-8">
+                    <h:inputText required="true" class="form-control"/>
+                </div>
+                <h:form p:action="start.xhtml?u=#{profileBean.user.userName}">
+                    <div class="col-md-2">
+                        <h:commandButton value="Search" title="Search" class="btn btn-primary"/>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+        </div>
+    </div>
+</ui:fragment>

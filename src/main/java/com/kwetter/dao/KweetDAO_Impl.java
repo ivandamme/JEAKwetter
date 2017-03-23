@@ -56,5 +56,16 @@ public class KweetDAO_Impl implements KweetDAO {
         }
     }
 
+    @Override
+    public List<Kweet> findByText(String text) {
+        Query q = em.createNamedQuery("Kweet.getByText");
+        q.setParameter("text", "%" + text + "%");
+        try {
+            return  q.getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
 
 }
