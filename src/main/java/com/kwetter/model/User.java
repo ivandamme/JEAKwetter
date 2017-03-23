@@ -18,10 +18,11 @@ import java.util.List;
         @NamedQuery(name = "Account.getByUserNameContains",
                 query = "SELECT u FROM User u where u.userName like :partOfUsername")
 })
-@Table(name="user")
+@Table(name = "user")
 public class User implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(unique = true, name = "username")
@@ -47,6 +48,7 @@ public class User implements Serializable {
     private List<User> following;
 
 
+
     @ManyToMany
     @JoinTable(name = "user_followers"
             , joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
@@ -54,7 +56,7 @@ public class User implements Serializable {
     private List<User> followers;
 
 
-    @OneToMany(mappedBy = "poster",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "poster", cascade = CascadeType.ALL)
     private List<Kweet> kweets;
 
     public User() {
@@ -129,6 +131,7 @@ public class User implements Serializable {
     public void setFollowing(List<User> following) {
         this.following = following;
     }
+
     public List<Kweet> getKweets() {
         return kweets;
     }
@@ -138,7 +141,6 @@ public class User implements Serializable {
     }
 
     /**
-     *
      * @param kweet
      */
     public void addKweet(Kweet kweet) {
@@ -150,30 +152,12 @@ public class User implements Serializable {
     }
 
     /**
-     *
      * @param kweet
      */
     public void removeKweet(Kweet kweet) {
         if (kweet != null && kweets != null && kweets.contains(kweet)) {
             this.kweets.remove(kweet);
         }
-    }
-
-    /**
-     *
-     * @param follow
-     */
-    public void addFollowing(User follow) {
-        if (follow != null && following != null)
-        this.following.add(follow);
-    }
-
-    /**
-     *
-     * @param follow
-     */
-    public void removeFollowing(User follow) {
-        this.following.remove(follow);
     }
 
     public Collection<Role> getRoles() {
@@ -204,6 +188,7 @@ public class User implements Serializable {
         this.pictureUrl = pictureUrl;
     }
 
+
     public List<User> getFollowers() {
         return followers;
     }
@@ -212,17 +197,31 @@ public class User implements Serializable {
         this.followers = followers;
     }
 
+
     /**
-     *
      * @param follow
      */
-    public void addFollowers(User follower) {
-        if (follower != null && followers != null)
-            this.followers.add(follower);
+    public void addFollowing(User follow) {
+        if (follow != null && following != null) {
+            following.add(follow);
+            follow.addFollower(this);
+        }
     }
 
-    public void removeFollowwer(User follower) {
-        this.followers.remove(follower);
+    private void addFollower(User user) {
+        followers.add(user);
+    }
+
+    /**
+     * @param follow
+     */
+    public void removeFollowing(User follow) {
+        following.remove(follow);
+        follow.removeFollower(this);
+    }
+
+    public void removeFollower(User follower) {
+        followers.remove(follower);
     }
 
 

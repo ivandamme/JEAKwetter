@@ -174,11 +174,16 @@ public class UserApi {
         userToAdd.addKweet(kweetToAdd2);
         userToAdd2.addKweet(kweetToAdd3);
 
-        kweetService.createUser(niekFollowing);
-        userToAdd.addFollowing(niekFollowing);
-        userToAdd.addFollowers(niekFollowing);
-
         kweetService.createUser(userToAdd);
+        kweetService.createUser(niekFollowing);
+
+        userToAdd.addFollowing(niekFollowing);
+
+        kweetService.editUser(userToAdd);
+        kweetService.editUser(niekFollowing);
+
+
+
         //  kweetService.createUser(userToAdd2);
     }
 
