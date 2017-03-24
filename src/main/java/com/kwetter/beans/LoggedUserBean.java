@@ -4,6 +4,7 @@ package com.kwetter.beans;
  * Created by Niek on 23-3-2017.
  */
 
+import com.kwetter.model.Role;
 import com.kwetter.model.User;
 import com.kwetter.service.KweetService;
 
@@ -41,6 +42,7 @@ public class LoggedUserBean implements Serializable {
     public boolean getLoggedIn() {
         return FacesContext.getCurrentInstance().getExternalContext().getRemoteUser() != null;
     }
+
     public String signOut() {
         try {
             request.logout();
@@ -52,5 +54,17 @@ public class LoggedUserBean implements Serializable {
             return null;
         }
     }
+
+    public boolean isAdmin() {
+        User user = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+        if (user != null) {
+            for (Role r : user.getRoles())
+                if (r.getRoleName().equals("admin")) {
+                    return true;
+                }
+        }
+        return false;
+    }
+
 }
 

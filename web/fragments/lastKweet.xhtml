@@ -2,7 +2,7 @@
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              xmlns:c="http://java.sun.com/jsp/jstl/core">
     <div class="panel panel-default">
-        <div class="panel-heading">Last Kweet</div>
+        <div class="panel-heading">Total Kweets: #{profileBean.user.kweets.size()} <br/> Last Kweet: </div>
         <div class="panel-body">
         <c:if test="#{profileBean.user.kweets.size() > 0}">
             <ui:include src="singleKweet.xhtml">

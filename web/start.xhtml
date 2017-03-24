@@ -28,6 +28,11 @@
                 <ui:include src="fragments/lastKweet.xhtml">
                     <ui:param name="componentTitle" value="Last Kweet"/>
                 </ui:include>
+                <ui:include src="fragments/userLists.xhtml">
+                    <ui:param name="currentUser" value="#{profileBean.user}"/>
+                    <ui:param name="componentTitle" value="Lists"/>
+                </ui:include>
+
             </div>
         </div>
         </h:panelGroup>
