@@ -176,15 +176,14 @@ public class UserApi {
 
         kweetService.createUser(userToAdd);
         kweetService.createUser(niekFollowing);
+        kweetService.createUser(userToAdd2);
 
         userToAdd.addFollowing(niekFollowing);
+        userToAdd2.addFollowing(userToAdd);
 
         kweetService.editUser(userToAdd);
         kweetService.editUser(niekFollowing);
-
-
-
-          kweetService.createUser(userToAdd2);
+        kweetService.editUser(userToAdd2);
     }
 
 

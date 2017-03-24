@@ -4,6 +4,7 @@ import com.kwetter.model.*;
 import com.kwetter.service.KweetService;
 
 import javax.ejb.EJB;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.RequestScoped;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
  */
 
 @RequestScoped
-@ManagedBean(name = "profileBean", eager = true)
+@ManagedBean(name = "profileBean")
 public class ProfileBean {
 
     ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -120,20 +121,18 @@ public class ProfileBean {
     {
         Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
         String username = parameterMap.get("u");
-        User test = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-        test.addFollowing(kwetterService.findByUserName(username));
-        kwetterService.editUser(test);
-        kwetterService.editUser(kwetterService.findByUserName(username));
+        User following = kwetterService.findByUserName(username);
+        User leader = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+        kwetterService.followUser(leader,following);
     }
 
     public void unFollowUser()
     {
         Map<String, String> parameterMap = this.externalContext.getRequestParameterMap();
         String username = parameterMap.get("u");
-        User test = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-        test.removeFollowing(kwetterService.findByUserName(username));
-        kwetterService.editUser(test);
-        kwetterService.editUser(kwetterService.findByUserName(username));
+        User following = kwetterService.findByUserName(username);
+        User leader = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+        kwetterService.removeFollower(leader,following);
     }
 
 

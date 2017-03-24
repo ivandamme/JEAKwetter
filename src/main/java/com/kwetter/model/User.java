@@ -51,7 +51,9 @@ public class User implements Serializable {
 
 
     @ManyToMany
-    @JoinTable(name = "user_followers")
+    @JoinTable(name = "user_followers"
+            , joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "ID", nullable = false)
+            , inverseJoinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "ID", nullable = false))
     private List<User> followers;
 
 
@@ -211,12 +213,18 @@ public class User implements Serializable {
      * @param follow
      */
     public void removeFollowing(User follow) {
-        following.remove(follow);
+        for (User u:following) if(u.getUserName().equals(follow.getUserName())) {
+            following.remove(u);
+            break;
+        }
         follow.removeFollower(this);
     }
 
     public void removeFollower(User follower) {
-        followers.remove(follower);
+        for (User u:followers) if(u.getUserName().equals(follower.getUserName())) {
+            followers.remove(u);
+            break;
+        }
     }
 
 
