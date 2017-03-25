@@ -168,9 +168,10 @@ public class KweetService {
         userDAO.editUser(following);
     }
 
-    public void removeFollowers(User user){
-        user.removeFollowers();
-        userDAO.editUser(user);
+    public void removeFollower(User leader, User follower){
+        leader.removeFollower(follower);
+        userDAO.editUser(leader);
+        userDAO.editUser(follower);
     }
 
 

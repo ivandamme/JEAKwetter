@@ -29,14 +29,28 @@ public class ModeratorBean implements Serializable {
     }
 
     public void deleteUser(User user) {
-        ArrayList<User> userss = new ArrayList<>();
+        ArrayList<User> followings = new ArrayList<>();
+        ArrayList<User> followers = new ArrayList<>();
+        ArrayList<User> following2 = new ArrayList<>();
         for (User following : user.getFollowing()) {
-            userss.add(following);
+            followings.add(following);
         }
-        for (User users: userss){
-            kwetterService.removeFollowing(user,users);
+        for (User follower : user.getFollowers()) {
+            followers.add(follower);
         }
-        kwetterService.removeFollowers(user);
+
+        for (User users : followings) {
+            kwetterService.removeFollowing(user, users);
+        }
+        for (User u : followers) {
+            for (User u2 : u.getFollowing()) {
+                following2.add(u2);
+            }
+            for (User u3 : following2)
+                if (u3.getUserName().equals(user.getUserName())) {
+                    kwetterService.removeFollowing(u, u3);
+                }
+        }
         kwetterService.removeUser(user);
     }
 
