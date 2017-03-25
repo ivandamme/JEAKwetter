@@ -44,6 +44,9 @@ public class UserDAO_Impl implements UserDAO {
 
     @Override
     public void removeUser(User user) {
+        if (!em.contains(user)) {
+            user = em.merge(user);
+        }
         em.remove(user);
     }
 

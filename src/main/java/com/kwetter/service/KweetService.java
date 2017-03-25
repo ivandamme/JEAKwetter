@@ -162,11 +162,17 @@ public class KweetService {
         userDAO.editUser(following);
     }
 
-    public void removeFollower(User leader, User following) {
+    public void removeFollowing(User leader, User following) {
         leader.removeFollowing(following);
         userDAO.editUser(leader);
         userDAO.editUser(following);
     }
+
+    public void removeFollowers(User user){
+        user.removeFollowers();
+        userDAO.editUser(user);
+    }
+
 
     public List<Kweet> getOwnAndFollowing(User user) {
         List<Kweet> kweets = new ArrayList<>();

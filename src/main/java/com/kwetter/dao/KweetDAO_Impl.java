@@ -37,6 +37,9 @@ public class KweetDAO_Impl implements KweetDAO {
 
     @Override
     public void removeKweet(Kweet k) {
+        if (!em.contains(k)) {
+            k = em.merge(k);
+        }
         em.remove(k);
     }
 

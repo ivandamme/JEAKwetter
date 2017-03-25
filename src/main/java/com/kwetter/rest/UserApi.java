@@ -102,7 +102,7 @@ public class UserApi {
         User userFollower = kweetService.findByUserName(usernameFollow);
         if (userLeader.getUserName() != null || userFollower.getUserName() != null) {
             if (userLeader.getFollowing().contains(userFollower)) {
-                kweetService.removeFollower(userLeader, userFollower);
+                kweetService.removeFollowing(userLeader, userFollower);
             }
         }
         return kweetService.getFollowing(userLeader);

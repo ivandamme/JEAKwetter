@@ -227,5 +227,16 @@ public class User implements Serializable {
         }
     }
 
+    public void removeFollowers(){
+        ArrayList<User> userss = new ArrayList<>();
+        for (User u:followers){
+            userss.add(u);
+        }
+        for (User u:userss){
+            u.removeFollowing(this);
+        }
+    }
+
+
 
 }

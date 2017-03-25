@@ -132,7 +132,7 @@ public class ProfileBean {
         String username = parameterMap.get("u");
         User following = kwetterService.findByUserName(username);
         User leader = kwetterService.findByUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-        kwetterService.removeFollower(leader,following);
+        kwetterService.removeFollowing(leader,following);
     }
 
 
