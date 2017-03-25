@@ -11,9 +11,7 @@ import javax.ejb.*;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
@@ -73,7 +71,7 @@ public class UserApi {
     @Path("/create")
     @Produces(APPLICATION_JSON)
     public String createUser(@FormParam("userName") String userName, @FormParam("password") String password) {
-        User user = new User(userName,password);
+        User user = new User(userName, password);
         kweetService.createUser(user);
         User addedUser = kweetService.findByUserName(userName);
         if (addedUser != null) {
@@ -90,7 +88,7 @@ public class UserApi {
         User userFollowing = kweetService.findByUserName(usernameFollow);
         if (userLeader.getUserName() != null || userFollowing.getUserName() != null) {
             if (!userLeader.getFollowing().contains(userFollowing)) {
-                kweetService.followUser(userLeader,userFollowing);
+                kweetService.followUser(userLeader, userFollowing);
             }
         }
         return kweetService.getFollowing(userLeader);
@@ -112,8 +110,7 @@ public class UserApi {
 
     @GET
     @Path("insert")
-    public void initUsers() {
-        Location location = new Location(1, 1, "Venlo");
+    public String initUsers() {
         Role roleAdmin = new Role("admin");
         Role roleUser = new Role("user");
 
@@ -123,67 +120,90 @@ public class UserApi {
         Collection<Role> rolesUser = new ArrayList<Role>();
         rolesUser.add(roleUser);
 
-        User userToAdd = new User(
-                "Niek",
-                "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-                "Head of the Maatwerk division (MWD) . Responsible for signing Maatwerk contracts and making Le Epic Maatwerk Memes. ",
-                location,
-                "https://pyld.io",
-                "https://pbs.twimg.com/profile_images/822132298556571648/pmTDnMBX_400x400.jpg"
-        );
+        ArrayList<String> randomLocations = new ArrayList<String>() {{
+            add("Venlo");
+            add("Eindhoven");
+            add("Amsterdam");
+            add("New York");
+            add("Tilburg");
+            add("Den Bosch");
+            add("Tegelen");
+            add("Groningen");
+            add("Utrecht");
+            add("Alkmaar");
+        }};
+
+        ArrayList<String> randomNames = new ArrayList<String>() {{
+            add("Niek");
+            add("Henk");
+            add("Pieter");
+            add("Joseph");
+            add("Ali");
+            add("Achmed");
+            add("Geert");
+            add("Killer Kamal");
+            add("Jeffrey");
+            add("Jan");
+        }};
+
+        ArrayList<String> randomPictures = new ArrayList<String>() {{
+            add("https://pbs.twimg.com/profile_images/822132298556571648/pmTDnMBX_400x400.jpg");
+            add("https://alphenaandenrijn.pvda.nl/wp-content/blogs.dir/370/pvda_files/cache/th_84d3103e6b09f4801b9f6d2d299003c2_1378324901HenkGoes.jpg");
+            add("https://hekwerk.nl/media/images/artists/thumbnails/pieterderks-pas-640x_.jpg");
+            add("https://pbs.twimg.com/profile_images/695757811725307905/5evAteta.jpg");
+            add("https://pbs.twimg.com/profile_images/801042444599037953/bo5Puy3P.jpg");
+            add("https://pbs.twimg.com/profile_images/483722140907102209/z3-relS4.jpeg");
+            add("https://pbs.twimg.com/profile_images/1813017013/PenB_portretten_ZK_0001_PenB_portret_02.jpg");
+            add("https://pbs.twimg.com/profile_images/826811657364074496/ydoY25sP.jpg");
+            add("https://pbs.twimg.com/profile_images/2244168741/K01rhMMj_400x400");
+            add("https://pbs.twimg.com/profile_images/430470855777591296/dHWqRB4X.jpeg");
+        }};
+
+        Location location = new Location(51, 6, "Venlo");
+        for (String locationName : randomLocations) {
+            Location newLocation = new Location(
+                    55,
+                    15,
+                    locationName
+            );
+
+            for (String name : randomNames) {
+                User newUser = new User(name, "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+                        "Hi! I'm " + name + " and I absolutely love Maatwerk and to slack everyday!", newLocation,
+                        "https://fontys.nl/", randomPictures.get(new Random().nextInt(9)));
+
+                for (int i = 0; i < (new Random()).nextInt(10 - 1) + 1; i++) {
+                    Kweet newKweet = new Kweet(
+                            name + "'s " + (i + 1) + " very special kweet",
+                            newUser
+                    );
+                    Random r = new Random();
+                    Long upperRange =new Date().getTime();
+                    Long lowerRange =1480000000000L;
+                    long randomValue = lowerRange + (long)(r.nextDouble()*(upperRange - lowerRange));
+                    Date dt =new Date(randomValue);
+                    newKweet.setDate(dt);
+                    newUser.addKweet(newKweet);
+                }
+                if (newUser.getUserName() == "Niek") {
+                    newUser.setRoles(rolesAdmin);
+                } else {
+                    newUser.setRoles(rolesUser);
+                }
+                kweetService.createUser(newUser);
+            }
+        }
+
+        kweetService.findByUserName("Niek").addFollowing(kweetService.findByUserName("Pieter"));
+        kweetService.findByUserName("Henk").addFollowing(kweetService.findByUserName("Niek"));
+
+        kweetService.editUser(kweetService.findByUserName("Niek"));
+        kweetService.editUser(kweetService.findByUserName("Pieter"));
+        kweetService.editUser(kweetService.findByUserName("Henk"));
 
 
-        User userToAdd2 = new User(
-                "Henk",
-                "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-                "All aboard the maatwerk train",
-                location,
-                "https://pyld.io",
-                "https://alphenaandenrijn.pvda.nl/wp-content/blogs.dir/370/pvda_files/cache/th_84d3103e6b09f4801b9f6d2d299003c2_1378324901HenkGoes.jpg"
-        );
+        return "Success";
 
-        User niekFollowing = new User(
-                "Pieter",
-                "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-                "HILDA",
-                location,
-                "NEE IS NEE HE",
-                "https://hekwerk.nl/media/images/artists/thumbnails/pieterderks-pas-640x_.jpg"
-        );
-        userToAdd.setRoles(rolesAdmin);
-        userToAdd2.setRoles(rolesUser);
-        niekFollowing.setRoles(rolesUser);
-
-
-        Kweet kweetToAdd1 = new Kweet(
-                "Wat een kansloze les is dit weer zeg #Fontys",
-                userToAdd
-        );
-
-        Kweet kweetToAdd2 = new Kweet(
-                "2 Memes a day keeps the Maatwerk away #HijdoetHetNiet",
-                userToAdd
-        );
-
-        Kweet kweetToAdd3 = new Kweet(
-                "My neck My neck My pussy and My #crack",
-                userToAdd2
-        );
-
-        userToAdd.addKweet(kweetToAdd1);
-        userToAdd.addKweet(kweetToAdd2);
-        userToAdd2.addKweet(kweetToAdd3);
-
-        kweetService.createUser(userToAdd);
-        kweetService.createUser(niekFollowing);
-        kweetService.createUser(userToAdd2);
-
-        userToAdd.addFollowing(niekFollowing);
-        userToAdd2.addFollowing(userToAdd);
-
-        kweetService.editUser(userToAdd);
-        kweetService.editUser(niekFollowing);
-        kweetService.editUser(userToAdd2);
     }
 
 
