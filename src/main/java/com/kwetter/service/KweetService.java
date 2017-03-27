@@ -168,7 +168,7 @@ public class KweetService {
         userDAO.editUser(following);
     }
 
-    public void removeFollower(User leader, User follower){
+    public void removeFollower(User leader, User follower) {
         leader.removeFollower(follower);
         userDAO.editUser(leader);
         userDAO.editUser(follower);
@@ -191,7 +191,10 @@ public class KweetService {
 
     }
 
-    public List<Kweet> getKweetByText(String text){
-       return kweetDAO.findByText(text);
+    public List<Kweet> getKweetByText(String text) {
+        List<Kweet> sortedKweets = kweetDAO.findByText(text);
+        Collections.sort(sortedKweets);
+        Collections.reverse(sortedKweets);
+        return sortedKweets;
     }
 }
