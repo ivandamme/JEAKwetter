@@ -8,6 +8,8 @@
                 <c:if test="#{userList.size() > 0}">
                     <c:forEach var="following" items="#{userList}">
                         <div class="col-md-4">
+                            <img src="${following.pictureUrl}" class="img-responsive img-rounded pull-left"
+                                 style="max-height: 20px; margin-right: 5px;"/>
                             <a href="profile.xhtml?u=#{following.userName}">#{following.userName}</a>
                         </div>
                     </c:forEach>

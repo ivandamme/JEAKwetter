@@ -129,9 +129,9 @@ public class User implements Serializable {
         return following;
     }
 
-    public void setFollowing(List<User> following) {
-        this.following = following;
-    }
+//    public void setFollowing(List<User> following) {
+//        this.following = following;
+//    }
 
     public List<Kweet> getKweets() {
         Collections.sort(kweets);
@@ -167,9 +167,9 @@ public class User implements Serializable {
         return roles;
     }
 
-    public void setRoles(Collection<Role> groups) {
-        this.roles = groups;
-    }
+//    public void setRoles(Collection<Role> groups) {
+//        this.roles = groups;
+//    }
 
     public void clearRoles() {
         roles.clear();

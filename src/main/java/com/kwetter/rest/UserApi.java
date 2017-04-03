@@ -185,11 +185,11 @@ public class UserApi {
                     newKweet.setDate(dt);
                     newUser.addKweet(newKweet);
                 }
-                if (newUser.getUserName() == "Niek") {
-                    newUser.setRoles(rolesAdmin);
-                } else {
-                    newUser.setRoles(rolesUser);
-                }
+//                if (newUser.getUserName() == "Niek") {
+//                    newUser.setRoles(rolesAdmin);
+//                } else {
+//                    newUser.setRoles(rolesUser);
+//                }
                 kweetService.createUser(newUser);
             }
         }

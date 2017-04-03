@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Rutger on 06/03/2017.
+ * Created by Niek 23-3-2017.
  */
 
 @RequestScoped
