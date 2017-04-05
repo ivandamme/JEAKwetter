@@ -53,6 +53,11 @@ public class UserDAOCollection_Impl implements UserDAO  {
     }
 
     @Override
+    public User findUserByID(int id) {
+        return null;
+    }
+
+    @Override
     public List<User> getAllFollowing(User user) {
         return user.getFollowing();
     }
@@ -70,5 +75,10 @@ public class UserDAOCollection_Impl implements UserDAO  {
     @Override
     public List<User> findUserByUserNameContains(String partOfUsername) {
         return null;
+    }
+
+    @Override
+    public boolean logIn(String userName, String password) {
+        return false;
     }
 }

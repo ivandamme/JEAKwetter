@@ -68,6 +68,17 @@ public class UserDAO_Impl implements UserDAO {
     }
 
     @Override
+    public User findUserByID(int id) {
+        Query q = em.createNamedQuery("Account.findByID");
+        q.setParameter("id", id);
+        try {
+            return (User) q.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
+    @Override
     public List<User> getAllFollowing(User user) {
         User findUser = findUserByUserName(user.getUserName());
         return findUser.getFollowing();
@@ -96,4 +107,21 @@ public class UserDAO_Impl implements UserDAO {
             return null;
         }
     }
+
+    @Override
+    public boolean logIn(String username, String password) {
+        if(username == null || username.isEmpty() || password == null || password.isEmpty())
+            return false;
+
+        try {
+            User user = (User) em.createQuery("select u from User u where u.userName = '" + username + "' and u.password = '" + password + "'").getSingleResult();
+            if (user != null)
+                return true;
+            return false;
+        }
+        catch (Exception x) {
+            return false;
+        }
+    }
+
 }

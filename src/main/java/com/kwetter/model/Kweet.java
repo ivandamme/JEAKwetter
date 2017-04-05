@@ -18,6 +18,9 @@ import javax.persistence.*;
         @NamedQuery(name = "Kweet.getByText",
                 query = "SELECT k FROM Kweet k where k.text like :text")
 })
+
+
+
 public class Kweet implements Serializable, Comparable<Kweet> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,6 +73,8 @@ public class Kweet implements Serializable, Comparable<Kweet> {
     public User getPoster() {
         return poster;
     }
+
+  //  public void setPoster(User poster){this.poster = poster;}
 
     @Override
     public int compareTo(Kweet o) {

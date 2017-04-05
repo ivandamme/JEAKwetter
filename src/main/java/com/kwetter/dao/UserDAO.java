@@ -45,6 +45,9 @@ public interface UserDAO {
      */
     User findUserByUserName(String userName);
 
+
+    User findUserByID(int id);
+
     /**
      * Retrieves all the users that the given username follows!
      * @param user
@@ -62,6 +65,9 @@ public interface UserDAO {
     List<User> getAllFollowers(User user);
 
     List<User> findUserByUserNameContains(String partOfUsername);
+
+
+    boolean logIn(String userName, String password);
 
 
 }

@@ -1,0 +1,124 @@
+<div class="row extra-padding-container" *ngIf="user">
+    <div class="col-md-6">
+        <div class="row extra-padding-block">
+            <div class="col-md-3 col-md-offset-1">
+                <img class="image-rounding" src="{{user.pictureUrl}}" width="100px" height="100px">
+            </div>
+            <div class="col-md-7">
+                <h1 align="center" class="profielNaam">
+                  {{user.profielNaam}}
+                </h1>
+            </div>
+            <div class="col-md-1" *ngIf="!alreadyFollowing">
+                <span class="profile-link" (click)="followUser()">Follow {{user.userName}}</span>
+            </div>
+            <div class="col-md-1" *ngIf="alreadyFollowing">
+                <span class="profile-link" (click)="unfollowUser()">Unfollow {{user.userName}}</span>
+            </div>
+        </div>
+        <div class="row extra-padding-block">
+            <div class="row">
+                <div class="col-md-2 block-titel">
+                    <b>Kweets:</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div *ngFor="let kweet of user.kweets" class="kweet-border">
+                        <div class="row kweet-title">
+                            <div class="col-md-12">
+                                <span class="profile-link" (click)="redirectToProfile(kweet.eigenaar.userName)">{{kweet.eigenaar.userName}}'s</span> kweet from: {{kweet.date}}
+                            </div>
+                        </div>
+                        <div class="row kweet-message">
+                            <div class="col-md-12">
+                                {{kweet.text}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row extra-padding-block">
+            <div class="row">
+                <div class="col-md-2 block-titel">
+                    <b>Details:</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2">
+                            bio:
+                        </div>
+                        <div class="col-md-10">
+                          {{user.bio}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            website:
+                        </div>
+                        <div class="col-md-10">
+                            <a href="{{user.website}}">{{user.website}}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            locatie:
+                        </div>
+                        <div class="col-md-10">
+                          {{user.location.city}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row extra-padding-block">
+            <div class="row">
+                <div class="col-md-2 block-titel">
+                    <b>Lijsten:</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" *ngIf="user.kweets">
+                  Kweets: {{user.kweets.length}}
+                </div>
+                <div class="col-md-4" *ngIf="user.leiders">
+                    <span class="profile-link" (click)="showLeidersOrVolgers(true)">Leiders: {{user.leiders.length}}</span>
+                </div>
+                <div class="col-md-4" *ngIf="user.volgers">
+                    <span class="profile-link" (click)="showLeidersOrVolgers(false)">Volgers: {{user.volgers.length}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row extra-padding-block" *ngIf="user.leiders && (showLeiders == true)">
+            <div class="row">
+                <div class="col-md-2 block-titel">
+                    <b>Leiders:</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2" *ngFor="let leider of user.leiders">
+                    <form>
+                        <span class="profile-link" (click)="redirectToProfile(leider.profielNaam)">{{leider.profielNaam}}</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row extra-padding-block" *ngIf="user.volgers && (showLeiders == false)">
+            <div class="row">
+                <div class="col-md-2 block-titel">
+                    <b>Volgers:</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2" *ngFor="let leider of user.volgers">
+                    <span class="profile-link" (click)="redirectToProfile(leider.profielNaam)">{{leider.profielNaam}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

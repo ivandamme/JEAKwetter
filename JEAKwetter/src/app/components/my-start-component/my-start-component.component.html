@@ -1,0 +1,118 @@
+<div class="row extra-padding-container" *ngIf="user">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Search Kweet:</div>
+      <div class="panel-body">
+
+        <form>
+          <div class="col-md-10">
+            <input type="text" class="form-control" id="searchString" required [(ngModel)]="searchString"
+                   name="searchString">
+          </div>
+          <button type="submit" class="btn btn-primary col-md-2" (click)="searchKweet()">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">Kweet-Content:</div>
+      <div class="panel-body">
+        <form>
+          <div class="form-group">
+          <textarea class="form-control" rows="5" id="newKweetString" required [(ngModel)]="newKweetString"
+                    name="newKweetString"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="sendKweet()">Kweet</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div *ngIf="showTimeline == 1">
+      <div class="panel panel-default">
+        <div class="panel-heading">Timeline:</div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngFor="let kweet of timelineKweets" class="kweet-border">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">Kweet posted by: HIER MOET USERNAME</div>
+                  <div class="panel-body">
+                    <h4>{{kweet.text}}</h4>
+                    <div class="col-md-1 col-md-offset-10">
+                      <span class="profile-link" (click)="removeKweet(kweet.id)">remove</span>
+                    </div>
+                  </div>
+                  <div class="panel-footer">kweet posted on: {{kweet.date}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row extra-padding-block" *ngIf="showTimeline == 4">
+      <div class="row">
+        <div class="col-md-3 block-titel">
+          <b>Found Kweets:</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-6">
+    <div *ngIf="lastKweet">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Last Kweet:</div>
+        <div class="panel-body">
+
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="panel panel-primary">
+                <div class="panel-heading">Kweet posted by: HIER MOET USERNAME</div>
+                <div class="panel-body">
+                  {{lastKweet.text}}
+                </div>
+                <div class="panel-footer">
+                  kweet posted on: {{lastKweet.date}}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Lists:</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-4" *ngIf="user.kweets">
+            <span class="profile-link" (click)="toggleTimeline(1)">Kweets: {{user.kweets.length}}</span>
+          </div>
+          <div class="col-md-4" *ngIf="user.leiders">
+            Leiders: {{user.leiders.length}}
+          </div>
+          <div class="col-md-4" *ngIf="user.volgers">
+            Volgers: {{user.volgers.length}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
+
+</div>

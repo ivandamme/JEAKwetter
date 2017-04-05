@@ -101,6 +101,12 @@ public class KweetService {
         return userDAO.getAllFollowing(user);
     }
 
+    //Show following
+    public List<User> getFollowers(User user) {
+        return userDAO.getAllFollowers(user);
+    }
+
+
     //Place Kweet
     public void placeKweet(Kweet kweet) {
         User user = kweet.getPoster();
@@ -150,6 +156,12 @@ public class KweetService {
         return userDAO.findUserByUserName(userName);
     }
 
+
+    public User findByID(int id) {
+        return userDAO.findUserByID(id);
+    }
+
+
     /**
      * Follows a user
      *
@@ -197,4 +209,22 @@ public class KweetService {
         Collections.reverse(sortedKweets);
         return sortedKweets;
     }
+
+    public boolean logIn(String userName, String password) {
+        return userDAO.logIn(userName, password);
+    }
+
+
+    public void changePic(String userName, String picture) {
+        User user = this.findByUserName(userName);
+        user.setPictureUrl(picture);
+        this.editUser(user);
+    }
+
+    public void changeBio(String userName, String bio) {
+        User user = this.findByUserName(userName);
+        user.setBio(bio);
+        this.editUser(user);
+    }
+
 }

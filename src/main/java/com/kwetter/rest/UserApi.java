@@ -10,7 +10,10 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.*;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import java.security.MessageDigest;
 import java.util.*;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -29,26 +32,46 @@ public class UserApi {
     KweetService kweetService;
 
     @GET
-    @RolesAllowed("admin")
     @Produces(APPLICATION_JSON)
     @Path("all")
-    public Collection<User> findAllUsers() {
+    public Collection<User> findAllUsers(@Context HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin" , "*");
         return kweetService.getUsers();
     }
 
     @GET
     @Produces(APPLICATION_JSON)
     @Path("{userName}")
-    public User findUser(@PathParam("userName") String userName) {
+    public User findUser(@PathParam("userName") String userName,@Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin" , "*");
         return kweetService.findByUserName(userName);
     }
 
     @GET
+    @Produces(APPLICATION_JSON)
+    @Path("id/{id}")
+    public User findUserByID(@PathParam("id") int id) {
+        return kweetService.findByID(id);
+    }
+
+
+
+    @GET
     @Path("following/{userName}")
     @Produces(APPLICATION_JSON)
-    public List<User> getFollowing(@PathParam("userName") String userName) {
+    public List<User> getFollowing(@PathParam("userName") String userName,@Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin" , "*");
         return kweetService.getFollowing(kweetService.findByUserName(userName));
     }
+
+    @GET
+    @Path("followers/{userName}")
+    @Produces(APPLICATION_JSON)
+    public List<User> getFollowers(@PathParam("userName") String userName,@Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin" , "*");
+        return kweetService.getFollowers(kweetService.findByUserName(userName));
+    }
+
 
     @GET
     @Produces(TEXT_PLAIN)
@@ -205,6 +228,68 @@ public class UserApi {
         return "Success";
 
     }
+
+    @POST
+    @Path("login")
+    @Produces(APPLICATION_JSON)
+    public User inloggen(@FormParam("userName") String userName, @FormParam("password") String password,@Context HttpServletResponse response) {
+
+        response.setHeader("Access-Control-Allow-Origin" , "*");
+        String hashstring = null;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes("UTF-8"));
+            StringBuilder hexString = new StringBuilder();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1)
+                    hexString.append('0');
+                hexString.append(hex);
+            }
+
+            hashstring = hexString.toString();
+        }
+        catch (Exception x) {
+            System.out.println(x);
+        }
+        String hashedPassword = (hashstring == null || hashstring.isEmpty()) ? password : hashstring;
+        if(kweetService.logIn(userName, hashedPassword)){
+            User kwetteraar = kweetService.findByUserName(userName);
+            return kwetteraar;
+        }
+        return null;
+    }
+
+    @POST
+    @Path("changepic")
+    @Produces(APPLICATION_JSON)
+    public User wijzigProfielfoto(@FormParam("userName") String userName, @FormParam("picture") String picture, @Context HttpServletResponse response) {
+
+        response.setHeader("Access-Control-Allow-Origin" , "*");
+        User user = kweetService.findByUserName(userName);
+        if (user != null) {
+            kweetService.changePic(userName,picture);
+            return user;
+        }
+        return null;
+    }
+
+    @POST
+    @Path("changebio")
+    @Produces(APPLICATION_JSON)
+    public User wijzigBio(@FormParam("userName") String userName, @FormParam("bio") String bio, @Context HttpServletResponse response) {
+
+        response.setHeader("Access-Control-Allow-Origin" , "*");
+        User user = kweetService.findByUserName(userName);
+        if (user != null) {
+            kweetService.changeBio(userName, bio);
+            return user;
+        }
+        return null;
+    }
+
+
 
 
 }

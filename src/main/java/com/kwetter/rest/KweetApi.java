@@ -8,7 +8,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 
 import java.util.List;
 
@@ -29,10 +31,10 @@ public class KweetApi {
 
 
     @GET
-    @RolesAllowed("admin")
     @Path("all")
     @Produces(APPLICATION_JSON)
-    public List<Kweet> getAllKweets() {
+    public List<Kweet> getAllKweets(@Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin" , "*");
         return kweetService.getKweets();
     }
 
@@ -62,13 +64,21 @@ public class KweetApi {
     }
 
     @POST
-    @RolesAllowed("admin")
     @Path("/delete")
     @Produces(APPLICATION_JSON)
-    public Kweet deleteKweet(@FormParam("id") long id) {
-        Kweet kweet = kweetService.getKweetById(id);
-        kweetService.removeKweet(kweet);
-        return kweet;
+    public List<Kweet> deleteKweet(@FormParam("id") long id,@Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin" , "*");
+        User user = kweetService.getKweetById(id).getPoster();
+        kweetService.removeKweet(kweetService.getKweetById(id));
+        return kweetService.findByUserName(user.getUserName()).getKweets();
+    }
+
+    @GET
+    @Path("timeline/{userName}")
+    @Produces(APPLICATION_JSON)
+    public List<Kweet> getTimeline(@PathParam("userName") String userName, @Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin" , "*");
+        return kweetService.getOwnAndFollowing(kweetService.findByUserName(userName));
     }
 
 

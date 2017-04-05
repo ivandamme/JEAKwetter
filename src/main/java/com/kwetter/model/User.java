@@ -1,5 +1,10 @@
 package com.kwetter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,9 +21,12 @@ import java.util.List;
                 query = "SELECT u FROM User u"),
         @NamedQuery(name = "Account.findByUsername",
                 query = "SELECT u FROM User u where u.userName = :userName"),
+        @NamedQuery(name = "Account.findByID",
+                query = "SELECT u FROM User u where u.id = :id"),
         @NamedQuery(name = "Account.getByUserNameContains",
                 query = "SELECT u FROM User u where u.userName like :partOfUsername")
 })
+
 @Table(name = "user")
 public class User implements Serializable {
 

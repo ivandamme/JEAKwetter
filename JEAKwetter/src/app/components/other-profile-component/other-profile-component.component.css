@@ -1,0 +1,43 @@
+.extra-padding-container {
+    padding-top: 30px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+.extra-padding-block {
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid black;
+}
+.image-rounding {
+    border-radius: 50%;
+}
+.profielNaam {
+    font-size: 50px;
+}
+.block-titel {
+    margin-top: -10px;
+    padding-bottom: 10px;
+}
+.kweet-message {
+    font-size: 18px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.kweet-title {
+    padding-top: 10px;
+    font-size: 14px;
+    color: #5d5f60;
+}
+.kweet-border {
+    border-bottom: 1px solid black;
+}
+.kweet-border:last-child {
+    border: none;
+}
+.profile-link {
+     color: #006699;
+ }
+ 
+.profile-link:hover {
+    cursor: pointer;
+}

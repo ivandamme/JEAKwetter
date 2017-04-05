@@ -1,0 +1,23 @@
+
+
+<div class="col-md-6" *ngFor="let user of users">
+
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">{{user.userName}}</div>
+    <div class="panel-body">
+      <div> Profile picture : {{user.pictureUrl}}</div>
+
+      <div> Bio : {{user.bio}}</div>
+      <div>City: {{user.location.city}}</div>
+    </div>
+    <div class="panel-footer">
+      <a href="{{user.website}}">{{user.website}}</a>
+    </div>
+
+
+  </div>
+
+
+</div>
+

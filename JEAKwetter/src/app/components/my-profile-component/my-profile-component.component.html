@@ -1,0 +1,149 @@
+<div class="row extra-padding-container" *ngIf="user">
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">Profile:</div>
+      <div class="panel-body">
+        <div class="col-md-3 ">
+          <img class="img-rounded" src="{{user.pictureUrl}}" width="200px" height="200px">
+        </div>
+
+        <div class="col-md-6 col-md-offset-3">
+          <h2><strong>{{user.userName}}</strong></h2>
+          <p>{{user.location.city}}</p>
+          <p>{{user.bio}}</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">Kweets:</div>
+          <div class="panel-body">
+
+
+          </div>
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div *ngFor="let kweet of user.kweets" class="kweet-border">
+                <div class="panel panel-primary">
+
+                  <div class="panel-heading">
+                    <span style="color:white" class="profile-link" (click)="redirectToProfile(user.userName)">{{user.userName}}</span>
+                  </div>
+                  <div class="panel-body">
+                    <h4>
+                      {{kweet.text}}
+                    </h4>
+                    <div class="col-md-1 col-md-offset-10">
+                      <span class="profile-link" (click)="removeKweet(kweet.id)">remove</span>
+                    </div>
+                  </div>
+                  <div class="panel-footer">
+                    kweet posted on: {{kweet.date}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Details:
+
+
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                bio:
+              </div>
+              <div class="col-md-10">
+                {{user.bio}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                website:
+              </div>
+              <div class="col-md-10">
+                <a href="{{user.website}}">{{user.website}}</a>
+              </div>
+            </div>
+            <div class="row" *ngIf="user.location">
+              <div class="col-md-2">
+                locatie:
+              </div>
+              <div class="col-md-10">
+                {{user.location.city}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-1 col-md-offset-10">
+            <h4><span class="profile-link" (click)="redirectToEditProfile()">edit</span></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Lists:</div>
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-4" *ngIf="user.kweets">
+            Kweets: {{user.kweets.length}}
+          </div>
+          <div class="col-md-4" *ngIf="userFollowing">
+            <span class="profile-link" (click)="showLeidersOrVolgers(true)">Followings: {{userFollowing.length}}</span>
+          </div>
+          <div class="col-md-4" *ngIf="userFollowers">
+            <span class="profile-link" (click)="showLeidersOrVolgers(false)">Followers: {{userFollowers.length}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="userFollowing && (showLeiders == true)">
+      <div class="panel panel-default">
+        <div class="panel-heading">Followings:</div>
+        <div class="panel-body">
+
+
+          <div class="row">
+            <div class="col-md-2" *ngFor="let following of userFollowing">
+              <form>
+                <span class="profile-link" (click)="redirectToProfile(following.userName)">{{following.userName}}</span>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div  *ngIf="userFollowers && (showLeiders == false)">
+      <div class="panel panel-default">
+        <div class="panel-heading">Followers:</div>
+        <div class="panel-body">
+      <div class="row">
+        <div class="col-md-2" *ngFor="let follower of userFollowers">
+          <span class="profile-link" (click)="redirectToProfile(follower.userName)">{{follower.userName}}</span>
+        </div>
+      </div>
+        </div>
+    </div>
+  </div>
+</div>
