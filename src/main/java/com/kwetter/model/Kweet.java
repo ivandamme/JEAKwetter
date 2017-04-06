@@ -1,5 +1,9 @@
 package com.kwetter.model;
 
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,17 +24,16 @@ import javax.persistence.*;
 })
 
 
-
 public class Kweet implements Serializable, Comparable<Kweet> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    @JsonIgnore
     private String text;
 
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-
+    @JsonIgnore
     private Date date;
 
     @ManyToOne(optional = false)
@@ -74,7 +77,9 @@ public class Kweet implements Serializable, Comparable<Kweet> {
         return poster;
     }
 
-  //  public void setPoster(User poster){this.poster = poster;}
+//    public void setPoster(User poster) {
+//        this.poster = poster;
+//    }
 
     @Override
     public int compareTo(Kweet o) {
@@ -89,19 +94,16 @@ public class Kweet implements Serializable, Comparable<Kweet> {
         long diffHours = diff / (60 * 60 * 1000);
         int diffInDays = (int) ((date2.getTime() - this.date.getTime()) / (1000 * 60 * 60 * 24));
 
-        if (diffHours <1){
-            if(diffMinutes <1 ){
-                returnString= " Just now";
+        if (diffHours < 1) {
+            if (diffMinutes < 1) {
+                returnString = " Just now";
                 return returnString;
             }
-            returnString= diffMinutes + " minutes ago";
-        }
-        else if(diffHours > 24)
-        {
-            returnString= diffInDays + " days ago";
-        }
-        else{
-            returnString= diffHours + " hours ago";
+            returnString = diffMinutes + " minutes ago";
+        } else if (diffHours > 24) {
+            returnString = diffInDays + " days ago";
+        } else {
+            returnString = diffHours + " hours ago";
         }
 
         return returnString;

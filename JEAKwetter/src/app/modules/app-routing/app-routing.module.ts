@@ -2,7 +2,6 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyUserComponent } from "app/components/my-user-component/my-user-component.component";
 import { MyKweetComponent } from "app/components/my-kweet-component/my-kweet-component.component";
-import { MyLocationComponent } from "app/components/my-location-component/my-location-component.component";
 import { MyRoleComponent } from "app/components/my-role-component/my-role-component.component";
 import { MyLogInComponent } from "app/components/my-login-component/my-login-component.component";
 import { MyProfileComponent } from "app/components/my-profile-component/my-profile-component.component";
@@ -15,7 +14,6 @@ import { MyStartComponent } from "app/components/my-start-component/my-start-com
 const routes: Routes = [
   { path: 'user',  component: MyUserComponent },
   { path: 'kweet',  component: MyKweetComponent },
-  { path: 'location',  component: MyLocationComponent },
   { path: 'role',  component: MyRoleComponent },
   { path: 'otherprofile',  component: OtherProfileComponent },
   { path: 'profile', component: MyProfileComponent, canActivate: [AuthGuard] },

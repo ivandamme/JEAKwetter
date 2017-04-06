@@ -134,16 +134,17 @@
       </div>
     </div>
 
-    <div  *ngIf="userFollowers && (showLeiders == false)">
+    <div *ngIf="userFollowers && (showLeiders == false)">
       <div class="panel panel-default">
         <div class="panel-heading">Followers:</div>
         <div class="panel-body">
-      <div class="row">
-        <div class="col-md-2" *ngFor="let follower of userFollowers">
-          <span class="profile-link" (click)="redirectToProfile(follower.userName)">{{follower.userName}}</span>
+          <div class="row">
+            <div class="col-md-2" *ngFor="let follower of userFollowers">
+              <span class="profile-link" (click)="redirectToProfile(follower.userName)">{{follower.userName}}</span>
+            </div>
+          </div>
         </div>
       </div>
-        </div>
     </div>
   </div>
 </div>

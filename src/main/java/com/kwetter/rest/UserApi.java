@@ -34,16 +34,16 @@ public class UserApi {
     @GET
     @Produces(APPLICATION_JSON)
     @Path("all")
-    public Collection<User> findAllUsers(@Context HttpServletResponse response){
-        response.setHeader("Access-Control-Allow-Origin" , "*");
+    public Collection<User> findAllUsers(@Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         return kweetService.getUsers();
     }
 
     @GET
     @Produces(APPLICATION_JSON)
     @Path("{userName}")
-    public User findUser(@PathParam("userName") String userName,@Context HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin" , "*");
+    public User findUser(@PathParam("userName") String userName, @Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         return kweetService.findByUserName(userName);
     }
 
@@ -55,20 +55,19 @@ public class UserApi {
     }
 
 
-
     @GET
     @Path("following/{userName}")
     @Produces(APPLICATION_JSON)
-    public List<User> getFollowing(@PathParam("userName") String userName,@Context HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin" , "*");
+    public List<User> getFollowing(@PathParam("userName") String userName, @Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         return kweetService.getFollowing(kweetService.findByUserName(userName));
     }
 
     @GET
     @Path("followers/{userName}")
     @Produces(APPLICATION_JSON)
-    public List<User> getFollowers(@PathParam("userName") String userName,@Context HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin" , "*");
+    public List<User> getFollowers(@PathParam("userName") String userName, @Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         return kweetService.getFollowers(kweetService.findByUserName(userName));
     }
 
@@ -103,33 +102,67 @@ public class UserApi {
         return "User could not be added.";
     }
 
-    @GET
-    @Path("addFollow/{leader}/{following}")
+//    @POST
+//    @Path("addFollow/{leader}/{following}")
+//    @Produces(APPLICATION_JSON)
+//    public Collection<User> addFollower(@PathParam("leader") String usernameUser, @PathParam("following") String usernameFollow,@Context HttpServletResponse response) {
+//        response.setHeader("Access-Control-Allow-Origin" , "*");
+//        User userLeader = kweetService.findByUserName(usernameUser);
+//        User userFollowing = kweetService.findByUserName(usernameFollow);
+//        if (userLeader.getUserName() != null || userFollowing.getUserName() != null) {
+//            if (!userLeader.getFollowing().contains(userFollowing)) {
+//                kweetService.followUser(userLeader, userFollowing);
+//            }
+//        }
+//        return kweetService.getFollowing(userLeader);
+//    }
+
+//    @POST
+//    @Path("unFollow/{leader}/{following}")
+//    @Produces(APPLICATION_JSON)
+//    public Collection<User> removeFollower(@PathParam("leader") String usernameUser, @PathParam("following") String usernameFollow,@Context HttpServletResponse response) {
+//        response.setHeader("Access-Control-Allow-Origin" , "*");
+//        User userLeader = kweetService.findByUserName(usernameUser);
+//        User userFollower = kweetService.findByUserName(usernameFollow);
+//        if (userLeader.getUserName() != null || userFollower.getUserName() != null) {
+//            if (userLeader.getFollowing().contains(userFollower)) {
+//                kweetService.removeFollowing(userLeader, userFollower);
+//            }
+//        }
+//        return kweetService.getFollowing(userLeader);
+//    }
+
+
+    @POST
+    @Path("unFollow")
     @Produces(APPLICATION_JSON)
-    public Collection<User> addFollower(@PathParam("leader") String usernameUser, @PathParam("following") String usernameFollow) {
-        User userLeader = kweetService.findByUserName(usernameUser);
-        User userFollowing = kweetService.findByUserName(usernameFollow);
-        if (userLeader.getUserName() != null || userFollowing.getUserName() != null) {
-            if (!userLeader.getFollowing().contains(userFollowing)) {
-                kweetService.followUser(userLeader, userFollowing);
-            }
+    public User removeFollower(@FormParam("leader") String usernameUser, @FormParam("following") String following, @Context HttpServletResponse response) {
+
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        User leader = kweetService.findByUserName(usernameUser);
+        User fol = kweetService.findByUserName(following);
+        if (leader != null && fol != null) {
+            kweetService.removeFollowing(leader, fol);
+            return leader;
         }
-        return kweetService.getFollowing(userLeader);
+        return null;
     }
 
-    @GET
-    @Path("unFollow/{leader}/{following}")
+    @POST
+    @Path("addFollow")
     @Produces(APPLICATION_JSON)
-    public Collection<User> removeFollower(@PathParam("leader") String usernameUser, @PathParam("following") String usernameFollow) {
-        User userLeader = kweetService.findByUserName(usernameUser);
-        User userFollower = kweetService.findByUserName(usernameFollow);
-        if (userLeader.getUserName() != null || userFollower.getUserName() != null) {
-            if (userLeader.getFollowing().contains(userFollower)) {
-                kweetService.removeFollowing(userLeader, userFollower);
-            }
+    public User addFollower(@FormParam("leader") String usernameUser, @FormParam("following") String following, @Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        User leader = kweetService.findByUserName(usernameUser);
+        User fol = kweetService.findByUserName(following);
+        if (leader != null && fol != null) {
+            kweetService.followUser(leader, fol);
+
+            return leader;
         }
-        return kweetService.getFollowing(userLeader);
+        return null;
     }
+
 
     @GET
     @Path("insert")
@@ -201,10 +234,10 @@ public class UserApi {
                             newUser
                     );
                     Random r = new Random();
-                    Long upperRange =new Date().getTime();
-                    Long lowerRange =1480000000000L;
-                    long randomValue = lowerRange + (long)(r.nextDouble()*(upperRange - lowerRange));
-                    Date dt =new Date(randomValue);
+                    Long upperRange = new Date().getTime();
+                    Long lowerRange = 1480000000000L;
+                    long randomValue = lowerRange + (long) (r.nextDouble() * (upperRange - lowerRange));
+                    Date dt = new Date(randomValue);
                     newKweet.setDate(dt);
                     newUser.addKweet(newKweet);
                 }
@@ -232,9 +265,9 @@ public class UserApi {
     @POST
     @Path("login")
     @Produces(APPLICATION_JSON)
-    public User inloggen(@FormParam("userName") String userName, @FormParam("password") String password,@Context HttpServletResponse response) {
+    public User inloggen(@FormParam("userName") String userName, @FormParam("password") String password, @Context HttpServletResponse response) {
 
-        response.setHeader("Access-Control-Allow-Origin" , "*");
+        response.setHeader("Access-Control-Allow-Origin", "*");
         String hashstring = null;
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -243,18 +276,17 @@ public class UserApi {
 
             for (int i = 0; i < hash.length; i++) {
                 String hex = Integer.toHexString(0xff & hash[i]);
-                if(hex.length() == 1)
+                if (hex.length() == 1)
                     hexString.append('0');
                 hexString.append(hex);
             }
 
             hashstring = hexString.toString();
-        }
-        catch (Exception x) {
+        } catch (Exception x) {
             System.out.println(x);
         }
         String hashedPassword = (hashstring == null || hashstring.isEmpty()) ? password : hashstring;
-        if(kweetService.logIn(userName, hashedPassword)){
+        if (kweetService.logIn(userName, hashedPassword)) {
             User kwetteraar = kweetService.findByUserName(userName);
             return kwetteraar;
         }
@@ -266,10 +298,10 @@ public class UserApi {
     @Produces(APPLICATION_JSON)
     public User wijzigProfielfoto(@FormParam("userName") String userName, @FormParam("picture") String picture, @Context HttpServletResponse response) {
 
-        response.setHeader("Access-Control-Allow-Origin" , "*");
+        response.setHeader("Access-Control-Allow-Origin", "*");
         User user = kweetService.findByUserName(userName);
         if (user != null) {
-            kweetService.changePic(userName,picture);
+            kweetService.changePic(userName, picture);
             return user;
         }
         return null;
@@ -280,7 +312,7 @@ public class UserApi {
     @Produces(APPLICATION_JSON)
     public User wijzigBio(@FormParam("userName") String userName, @FormParam("bio") String bio, @Context HttpServletResponse response) {
 
-        response.setHeader("Access-Control-Allow-Origin" , "*");
+        response.setHeader("Access-Control-Allow-Origin", "*");
         User user = kweetService.findByUserName(userName);
         if (user != null) {
             kweetService.changeBio(userName, bio);
@@ -288,8 +320,6 @@ public class UserApi {
         }
         return null;
     }
-
-
 
 
 }

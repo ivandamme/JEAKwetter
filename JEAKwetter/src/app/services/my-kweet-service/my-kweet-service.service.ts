@@ -30,6 +30,12 @@ export class MyKweetService {
     return this.getRequest(url);
   }
 
+  public getByContent(content: string): Observable<MyKweetModel[]> {
+    const endPoint = 'api/kweets/content/' + content;
+    const url = this.globalUrl + endPoint;
+    return this.getRequest(url);
+  }
+
 
   public create(naam: string, content: string):  Observable<MyKweetModel> {
     const endPoint = 'api/kweets/insert/';
@@ -50,6 +56,7 @@ export class MyKweetService {
     const url = this.globalUrl + endPoint;
     return this.getRequest(url);
   }
+
 
   private getRequest(url: string): any {
     let headers = new Headers({

@@ -41,15 +41,6 @@ export class MyUserService {
     return this.getRequest(url);
   }
 
-
-  public create(name: string, foto: string, bio: string, website: string, rol: string, locatie: string, wachtwoord: string):  Observable<any> {
-    const endPoint = 'rest/user/post/insert/';
-    const url = this.globalUrl + endPoint;
-    let body = 'name=' + name + '&foto=' + foto + '&bio=' + bio + '&website='
-    + website + '&rol=' + rol + '&locatie=' + locatie + '&wachtwoord=' + wachtwoord;
-    return this.postRequest(url, body);
-  }
-
   public changePicture(userName: string, picture: string):  Observable<any> {
     const endPoint = 'api/users/changepic/';
     const url = this.globalUrl + endPoint;

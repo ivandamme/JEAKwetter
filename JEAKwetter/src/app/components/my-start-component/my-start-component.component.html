@@ -42,9 +42,6 @@
                   <div class="panel-heading">Kweet posted by: HIER MOET USERNAME</div>
                   <div class="panel-body">
                     <h4>{{kweet.text}}</h4>
-                    <div class="col-md-1 col-md-offset-10">
-                      <span class="profile-link" (click)="removeKweet(kweet.id)">remove</span>
-                    </div>
                   </div>
                   <div class="panel-footer">kweet posted on: {{kweet.date}}</div>
                 </div>
@@ -56,13 +53,25 @@
     </div>
 
 
-    <div class="row extra-padding-block" *ngIf="showTimeline == 4">
-      <div class="row">
-        <div class="col-md-3 block-titel">
-          <b>Found Kweets:</b>
+    <div *ngIf="showTimeline == 4">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Found Kweets with the following text: "{{this.searchString}}"</div>
+        <div class="panel-body">
+        <div *ngFor="let kweet of foundKweets" class="kweet-border">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Kweet posted by: HIER MOET USERNAME</div>
+            <div class="panel-body">
+              <h4>{{kweet.text}}</h4>
+            </div>
+            <div class="panel-footer">kweet posted on: {{kweet.date}}</div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
+
+
   </div>
 
 
@@ -101,18 +110,18 @@
           <div class="col-md-4" *ngIf="user.kweets">
             <span class="profile-link" (click)="toggleTimeline(1)">Kweets: {{user.kweets.length}}</span>
           </div>
-          <div class="col-md-4" *ngIf="user.leiders">
-            Leiders: {{user.leiders.length}}
+          <div class="col-md-4" *ngIf="userFollowing">
+            Following: {{userFollowing.length}}
           </div>
-          <div class="col-md-4" *ngIf="user.volgers">
-            Volgers: {{user.volgers.length}}
+          <div class="col-md-4" *ngIf="userFollowers">
+            Followers: {{userFollowers.length}}
           </div>
         </div>
       </div>
     </div>
 
 
-</div>
+  </div>
 
 
 </div>

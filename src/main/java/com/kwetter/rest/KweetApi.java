@@ -57,7 +57,8 @@ public class KweetApi {
     @POST
     @Path("/insert")
     @Produces(APPLICATION_JSON)
-    public Kweet insertKweet(@FormParam("userName") String userName, @FormParam("text") String text) {
+    public Kweet insertKweet(@FormParam("userName") String userName, @FormParam("text") String text,@Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin" , "*");
         Kweet kweet = new Kweet(text, kweetService.findByUserName(userName));
         kweetService.placeKweet(kweet);
         return kweet;
@@ -81,5 +82,11 @@ public class KweetApi {
         return kweetService.getOwnAndFollowing(kweetService.findByUserName(userName));
     }
 
-
+    @GET
+    @Path("content/{content}")
+    @Produces(APPLICATION_JSON)
+    public List<Kweet> getKweetsByContent(@PathParam("content") String content, @Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin" , "*");
+        return kweetService.getKweetByText(content);
+    }
 }

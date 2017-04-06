@@ -54,7 +54,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   public getFollowing(): void {
-    this.myUserService.getFollowing("Niek").subscribe(following => {
+    this.myUserService.getFollowing(localStorage.getItem('loggedInUserName')).subscribe(following => {
       following.forEach(f => {
         this.userFollowing.push(f);
       });
@@ -62,7 +62,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   public getFollowers(): void {
-    this.myUserService.getFollowers("Niek").subscribe(following => {
+    this.myUserService.getFollowers(localStorage.getItem('loggedInUserName')).subscribe(following => {
       following.forEach(f => {
         this.userFollowers.push(f);
       });
