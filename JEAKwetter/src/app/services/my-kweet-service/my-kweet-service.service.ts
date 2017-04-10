@@ -51,6 +51,14 @@ export class MyKweetService {
     return this.postRequest(url, body);
   }
 
+  public deleteForAll(id: number):  Observable<MyKweetModel[]> {
+    const endPoint = 'api/kweets/deleteForAll/';
+    const url = this.globalUrl + endPoint;
+    let body = 'id=' + id;
+    return this.postRequest(url, body);
+  }
+
+
   public getTimeLine(userName: string): Observable<any> {
     const endPoint = 'api/kweets/timeline/' + userName;
     const url = this.globalUrl + endPoint;

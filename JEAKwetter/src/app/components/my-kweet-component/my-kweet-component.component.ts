@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MyKweetModel } from "app/models/my-kweet-model/my-kweet-model";
-import { MyKweetService } from "app/services/my-kweet-service/my-kweet-service.service";
+import {Component, OnInit} from '@angular/core';
+import {MyKweetModel} from "app/models/my-kweet-model/my-kweet-model";
+import {MyKweetService} from "app/services/my-kweet-service/my-kweet-service.service";
 
 @Component({
   selector: 'my-kweet-component',
@@ -18,11 +18,18 @@ export class MyKweetComponent implements OnInit {
     this.getAll();
   }
 
+  public removeKweet(id: number) {
+    this.kweetService.deleteForAll(id).subscribe(k => {
+      console.log(k);
+      this.kweets = k;
+    });
+  }
+
+
   public getAll() {
     this.kweetService.getAll().subscribe(kweets => {
       kweets.forEach(k => {
         this.kweets.push(k)
-        //this.kweets.push(new MyKweetModel(k.id, k.text, k.date, k.eigenaar));
       });
     });
   }

@@ -57,6 +57,11 @@ export class MyStartComponent implements OnInit {
     this.showTimeline = value;
   }
 
+  public redirectToProfile(name: string): void {
+    localStorage.setItem('clickedUsername', name);
+    this.router.navigateByUrl('/otherprofile');
+  }
+
   public removeKweet(id: number) {
     this.kweetService.delete(id).subscribe(k => {
       console.log(k);

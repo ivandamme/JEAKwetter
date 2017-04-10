@@ -74,6 +74,15 @@ public class KweetApi {
         return kweetService.findByUserName(user.getUserName()).getKweets();
     }
 
+    @POST
+    @Path("/deleteForAll")
+    @Produces(APPLICATION_JSON)
+    public List<Kweet> deleteKweetForAll(@FormParam("id") long id,@Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin" , "*");
+        kweetService.removeKweet(kweetService.getKweetById(id));
+        return kweetService.getKweets();
+    }
+
     @GET
     @Path("timeline/{userName}")
     @Produces(APPLICATION_JSON)

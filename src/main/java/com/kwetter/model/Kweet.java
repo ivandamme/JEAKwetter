@@ -81,6 +81,16 @@ public class Kweet implements Serializable, Comparable<Kweet> {
 //        this.poster = poster;
 //    }
 
+    public String getUsername()
+    {
+        return poster.getUserName();
+    }
+
+    public void setUsername(String username)
+    {
+        this.poster.setUserName(username);
+    }
+
     @Override
     public int compareTo(Kweet o) {
         return getDate().compareTo(o.getDate());
