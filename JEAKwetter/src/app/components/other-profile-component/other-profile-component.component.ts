@@ -30,8 +30,8 @@ export class OtherProfileComponent implements OnInit {
 
     this.getUserByName(username);
     this.getLoggedInUser(loggedInUserName);
-    this.getLoggedUserFollowing();
 
+    this.getLoggedUserFollowing();
     this.getUserFollowing();
 
   }
@@ -53,24 +53,14 @@ export class OtherProfileComponent implements OnInit {
     });
   }
 
-
   public getLoggedInUser(name: string): void {
     this.myUserService.getByName(name).subscribe(k => {
-      console.log(k);
       this.loggedInUser = k;
     });
   }
 
   public showLeidersOrVolgers(status: boolean) {
     this.showLeiders = status;
-  }
-
-  public startVolgen(naamLeider: string, naamVolger: string): void {
-    this.myUserService.addVolger(naamLeider, naamVolger).subscribe();
-  }
-
-  public stopVolgen(naamLeider: string, naamVolger: string): void {
-    this.myUserService.stopVolger(naamLeider, naamVolger).subscribe();
   }
 
   public redirectToProfile(name: string): void {
@@ -81,30 +71,32 @@ export class OtherProfileComponent implements OnInit {
   }
 
   public followUser() {
-    this.startVolgen(localStorage.getItem('loggedInUserName'), localStorage.getItem('clickedUsername'));
-    this.ngOnInit();
-    window.location.reload();
+    this.myUserService.addVolger(localStorage.getItem('loggedInUserName'), localStorage.getItem('clickedUsername')).subscribe(leader => {
+        this.alreadyFollowing = true;
+        this.myUserService.getFollowers(localStorage.getItem('clickedUsername')).subscribe(followers => {
+          this.UserFollowers = followers;
+        });
+      });
   }
 
   public unfollowUser() {
-    this.stopVolgen(this.loggedInUser.userName, this.user.userName);
-    this.ngOnInit();
-    window.location.reload();
+    this.myUserService.stopVolger(localStorage.getItem('loggedInUserName'), localStorage.getItem('clickedUsername')).subscribe(leader => {
+      this.alreadyFollowing = false;
+      this.myUserService.getFollowers(localStorage.getItem('clickedUsername')).subscribe(followers => {
+        this.UserFollowers = followers;
+      });
+    });
   }
 
   public getLoggedUserFollowing(): void {
     this.myUserService.getFollowing(localStorage.getItem('loggedInUserName')).subscribe(following => {
-      following.forEach(f => {
-        this.loggedUserFollowing.push(f);
-      });
+      this.loggedUserFollowing = (following);
     });
   }
 
   public getUserFollowing(): void {
     this.myUserService.getFollowing(localStorage.getItem('clickedUsername')).subscribe(following => {
-      following.forEach(f => {
-        this.UserFollowing.push(f);
-      });
+      this.UserFollowing = following;
     });
   }
 }
