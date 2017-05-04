@@ -5,8 +5,8 @@ import com.kwetter.model.Location;
 import com.kwetter.model.Role;
 import com.kwetter.model.User;
 import com.kwetter.service.KweetService;
+//import com.kwetter.websocket.SessionLister;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.*;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
@@ -102,35 +102,6 @@ public class UserApi {
         return "User could not be added.";
     }
 
-//    @POST
-//    @Path("addFollow/{leader}/{following}")
-//    @Produces(APPLICATION_JSON)
-//    public Collection<User> addFollower(@PathParam("leader") String usernameUser, @PathParam("following") String usernameFollow,@Context HttpServletResponse response) {
-//        response.setHeader("Access-Control-Allow-Origin" , "*");
-//        User userLeader = kweetService.findByUserName(usernameUser);
-//        User userFollowing = kweetService.findByUserName(usernameFollow);
-//        if (userLeader.getUserName() != null || userFollowing.getUserName() != null) {
-//            if (!userLeader.getFollowing().contains(userFollowing)) {
-//                kweetService.followUser(userLeader, userFollowing);
-//            }
-//        }
-//        return kweetService.getFollowing(userLeader);
-//    }
-
-//    @POST
-//    @Path("unFollow/{leader}/{following}")
-//    @Produces(APPLICATION_JSON)
-//    public Collection<User> removeFollower(@PathParam("leader") String usernameUser, @PathParam("following") String usernameFollow,@Context HttpServletResponse response) {
-//        response.setHeader("Access-Control-Allow-Origin" , "*");
-//        User userLeader = kweetService.findByUserName(usernameUser);
-//        User userFollower = kweetService.findByUserName(usernameFollow);
-//        if (userLeader.getUserName() != null || userFollower.getUserName() != null) {
-//            if (userLeader.getFollowing().contains(userFollower)) {
-//                kweetService.removeFollowing(userLeader, userFollower);
-//            }
-//        }
-//        return kweetService.getFollowing(userLeader);
-//    }
 
 
     @POST
@@ -288,6 +259,9 @@ public class UserApi {
         String hashedPassword = (hashstring == null || hashstring.isEmpty()) ? password : hashstring;
         if (kweetService.logIn(userName, hashedPassword)) {
             User kwetteraar = kweetService.findByUserName(userName);
+//            if (!SessionLister.getInstance().getActiveUsers().contains(userName))
+//                SessionLister.getInstance().getActiveUsers().add(userName);
+
             return kwetteraar;
         }
         return null;

@@ -10,6 +10,7 @@ import {UpdateProfileComponent} from "app/components/update-profile-component/up
 import {MyStartComponent} from "app/components/my-start-component/my-start-component.component";
 import {MyKweetComponent} from "../../components/my-kweet-component/my-kweet-component.component";
 import {MyHomeComponent} from "../../components/my-home-component/homecomponent";
+import {MyWebsocketComponent} from "../../components/my-websocket-component/my-websocket-component";
 
 const routes: Routes = [
   {path: 'user', component: MyUserComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'login', component: MyLogInComponent},
   {path: 'logout', component: MyLogOutComponent},
   {path: 'updateprofile', component: UpdateProfileComponent, canActivate: [AuthGuard]},
+  {path: 'websocket', component: MyWebsocketComponent, canActivate: [AuthGuard] },
   {path: 'start', component: MyStartComponent, canActivate: [AuthGuard]}
 ];
 

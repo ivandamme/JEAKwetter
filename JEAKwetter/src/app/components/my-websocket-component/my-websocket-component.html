@@ -1,0 +1,9 @@
+<div>
+  <div>
+    <input id="inputmessage" type="text" [(ngModel)]="messageString" />
+  </div>
+  <div>
+    <input type="submit" value="Broadcast message" (click)="send()" />
+  </div>
+  <div id="messages"></div>
+</div>

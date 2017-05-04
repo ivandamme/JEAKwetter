@@ -19,6 +19,7 @@ import {AuthGuard} from "../../guards/authentication.guard";
 import { MyStartComponent } from "app/components/my-start-component/my-start-component.component";
 import {MyKweetComponent} from "../../components/my-kweet-component/my-kweet-component.component";
 import {MyHomeComponent} from "../../components/my-home-component/homecomponent";
+import {MyWebsocketComponent} from "../../components/my-websocket-component/my-websocket-component";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MyHomeComponent} from "../../components/my-home-component/homecomponent"
     OtherProfileComponent,
     UpdateProfileComponent,
     MyLogOutComponent,
-    MyStartComponent
+    MyStartComponent,
+    MyWebsocketComponent
   ],
   imports: [
     BrowserModule,
