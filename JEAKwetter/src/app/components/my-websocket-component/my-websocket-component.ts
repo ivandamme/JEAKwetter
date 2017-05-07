@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-websocket-component',
-  templateUrl: './my-websocket-component.component.html'
+  templateUrl: './my-websocket-component.html'
 })
 export class MyWebsocketComponent {
 
@@ -16,9 +16,9 @@ export class MyWebsocketComponent {
 
   constructor() {
 
-    this.username = localStorage.getItem('loggedInUserName');
+    this.username = sessionStorage.getItem('loggedInUserName');
     console.log(this.username);
-    this.websocket = new WebSocket('ws://localhost:64550/Kwetter_war_exploded/socket/' + this.username);
+    this.websocket = new WebSocket('ws://localhost:8080/JEAKwetter_war_exploded/socket/' + this.username);
 
     this.websocket.onerror = function (event) {
       onError(event);
@@ -34,7 +34,7 @@ export class MyWebsocketComponent {
 
     function onMessage(event) {
       console.log(event.data);
-      document.getElementById('messages').innerHTML += '<br />Received message: ' + event.data;
+      document.getElementById('messages').innerHTML += '<br />' + event.data;
       //this.messages += '<br />Received message: ' + event.data;
     };
 

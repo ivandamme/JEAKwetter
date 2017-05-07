@@ -29,7 +29,7 @@ export class MyLogInComponent implements OnInit {
     this.userService.inloggen(name, pass).subscribe(k => {
       if (k != null) {
         this.user = new MyUserModel(k.id, k.userName, k.bio, k.website, k.pictureUrl, k.location);
-        localStorage.setItem('loggedInUserName', this.user.userName);
+        sessionStorage.setItem('loggedInUserName', this.user.userName);
         this.router.navigateByUrl('/profile');
       }
       else {

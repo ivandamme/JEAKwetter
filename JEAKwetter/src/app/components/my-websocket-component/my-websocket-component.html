@@ -1,9 +1,13 @@
-<div>
-  <div>
-    <input id="inputmessage" type="text" [(ngModel)]="messageString" />
-  </div>
-  <div>
-    <input type="submit" value="Broadcast message" (click)="send()" />
+<div class="panel panel-default">
+  <div class="panel-heading">Kweet-Content:</div>
+  <div class="panel-body">
+    <form>
+      <div class="form-group">
+          <textarea class="form-control" rows="5" id="inputmessage" required [(ngModel)]="messageString"
+                    name="messageString"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="send()">Send Kweet</button>
+    </form>
   </div>
   <div id="messages"></div>
 </div>

@@ -28,7 +28,7 @@ export class MyStartComponent implements OnInit {
 
   public ngOnInit() {
     this.showTimeline = 1;
-    this.getUserByName(localStorage.getItem('loggedInUserName'));
+    this.getUserByName(sessionStorage.getItem('loggedInUserName'));
     this.getFollowing();
     this.getFollowers();
   }
@@ -58,7 +58,7 @@ export class MyStartComponent implements OnInit {
   }
 
   public redirectToProfile(name: string): void {
-    localStorage.setItem('clickedUsername', name);
+    sessionStorage.setItem('clickedUsername', name);
     this.router.navigateByUrl('/otherprofile');
   }
 
@@ -86,7 +86,7 @@ export class MyStartComponent implements OnInit {
   }
 
   public getFollowing(): void {
-    this.userService.getFollowing(localStorage.getItem('loggedInUserName')).subscribe(following => {
+    this.userService.getFollowing(sessionStorage.getItem('loggedInUserName')).subscribe(following => {
       following.forEach(f => {
         this.userFollowing.push(f);
       });
@@ -94,7 +94,7 @@ export class MyStartComponent implements OnInit {
   }
 
   public getFollowers(): void {
-    this.userService.getFollowers(localStorage.getItem('loggedInUserName')).subscribe(following => {
+    this.userService.getFollowers(sessionStorage.getItem('loggedInUserName')).subscribe(following => {
       following.forEach(f => {
         this.userFollowers.push(f);
       });

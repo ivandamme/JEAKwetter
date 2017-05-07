@@ -20,7 +20,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.getUserByName(localStorage.getItem('loggedInUserName'));
+    this.getUserByName(sessionStorage.getItem('loggedInUserName'));
     this.getFollowing();
     this.getFollowers();
 
@@ -49,12 +49,12 @@ export class MyProfileComponent implements OnInit {
   }
 
   public redirectToProfile(name: string): void {
-    localStorage.setItem('clickedUsername', name);
+    sessionStorage.setItem('clickedUsername', name);
     this.router.navigateByUrl('/otherprofile');
   }
 
   public getFollowing(): void {
-    this.myUserService.getFollowing(localStorage.getItem('loggedInUserName')).subscribe(following => {
+    this.myUserService.getFollowing(sessionStorage.getItem('loggedInUserName')).subscribe(following => {
       following.forEach(f => {
         this.userFollowing.push(f);
       });
@@ -62,7 +62,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   public getFollowers(): void {
-    this.myUserService.getFollowers(localStorage.getItem('loggedInUserName')).subscribe(following => {
+    this.myUserService.getFollowers(sessionStorage.getItem('loggedInUserName')).subscribe(following => {
       following.forEach(f => {
         this.userFollowers.push(f);
       });

@@ -16,7 +16,7 @@ export class UpdateProfileComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.getKwetteraarByName(localStorage.getItem('loggedInUserName'));
+        this.getKwetteraarByName(sessionStorage.getItem('loggedInUserName'));
     }
 
     public getKwetteraarByName(name: string) : void {

@@ -76,6 +76,14 @@ export class MyUserService {
     return this.postRequest(url, body);
   }
 
+  public uitloggen(name: string): Observable<any> {
+    const endPoint = 'api/users/logout/';
+    const url = this.globalUrl + endPoint;
+    let body = 'name=' + name;
+    return this.postRequest(url, body);
+  }
+
+
   private getRequest(url: string): any {
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'

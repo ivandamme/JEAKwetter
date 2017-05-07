@@ -5,6 +5,7 @@ import com.kwetter.model.Location;
 import com.kwetter.model.Role;
 import com.kwetter.model.User;
 import com.kwetter.service.KweetService;
+import com.kwetter.websocket.SessionLister;
 //import com.kwetter.websocket.SessionLister;
 
 import javax.ejb.*;
@@ -259,13 +260,26 @@ public class UserApi {
         String hashedPassword = (hashstring == null || hashstring.isEmpty()) ? password : hashstring;
         if (kweetService.logIn(userName, hashedPassword)) {
             User kwetteraar = kweetService.findByUserName(userName);
-//            if (!SessionLister.getInstance().getActiveUsers().contains(userName))
-//                SessionLister.getInstance().getActiveUsers().add(userName);
+            if (!SessionLister.getInstance().getActiveUsers().contains(userName))
+                SessionLister.getInstance().getActiveUsers().add(userName);
 
             return kwetteraar;
         }
         return null;
     }
+
+
+    @POST
+    @Path("logout")
+    @Produces(APPLICATION_JSON)
+    public void uitloggen(@FormParam("name") String name, @Context HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        User user = kweetService.findByUserName(name);
+        if (user != null && SessionLister.getInstance().getActiveUsers().contains(name)) {
+            SessionLister.getInstance().getActiveUsers().remove(name);
+        }
+    }
+
 
     @POST
     @Path("changepic")
